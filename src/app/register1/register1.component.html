@@ -1,15 +1,16 @@
-<div>
+<div class="register-container">
     <label for="email">Email:</label>
-    <input type="email" [(ngModel)]="email" name="email">
-
+    <input type="email" [(ngModel)]="email" name="email" placeholder="Introduce tu email">
+  
     <label for="password">Contraseña:</label>
-    <input type="password" [(ngModel)]="pwd1" name="password">
-
+    <input type="password" [(ngModel)]="pwd1" name="password" placeholder="Introduce tu contraseña">
+  
     <label for="confirmPassword">Confirmar Contraseña:</label>
-    <input type="password" [(ngModel)]="pwd2" name="confirmPassword">
-
+    <input type="password" [(ngModel)]="pwd2" name="confirmPassword" placeholder="Confirma tu contraseña">
+  
     <button (click)="registrar()">Registrar</button>
-
-    <span *ngIf="respuestaOK">Registro exitoso.</span>
-    <span *ngIf="contraseniascoinciden">Las contrasenias no Coinciden.</span>
-</div>
+  
+    <span class="success" *ngIf="respuestaOK">Registro exitoso.</span>
+    <span class="error" *ngIf="contraseniascoinciden">Las contraseñas no coinciden.</span>
+  </div>
+  
