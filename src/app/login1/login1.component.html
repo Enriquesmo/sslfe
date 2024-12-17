@@ -1,0 +1,31 @@
+<form class='custom-form' [formGroup]= "loginForm" (ngSubmit)= "onSubmit()" >      
+    <label>Email</label>
+    <input  
+        type="email"
+        formControlName="email"
+        placeholder="Introduce tu email"
+        name="email"
+      />
+      <div class="invalid-feedback" *ngIf= "this.loginForm.controls['email'].errors" >
+        <div *ngIf= "this.loginForm.controls['email'].errors?.['required']">El email es obligatorio</div>
+        <div *ngIf= "this.loginForm.controls['email'].errors?.['email']">El formato del email no es correcto</div>
+      </div>
+      <br>
+      <label>Contrase&ntilde;a</label>
+      <input  
+        type="password"
+        placeholder="Introduce tu contrase&ntilde;a"
+        formControlName="pwd"
+      />
+       <div *ngIf= "this.loginForm.controls['pwd'].errors?.['required']">La contraseña es obligatoria</div>
+       <div *ngIf= "this.loginForm.controls['pwd'].errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+       <div class="field-message" *ngIf= "this.loginForm.controls['pwd'].errors?.['passwordStrength']">
+        Your password must have lower case, upper case and numeric characters.
+    </div>
+      
+    <br>
+    <span>
+      <button class="btn btn-primary mr-1" [disabled]="loginForm.invalid">Logarse</button>
+      <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancelar</button>
+    </span>
+  </form>
