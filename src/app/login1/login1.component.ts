@@ -41,7 +41,7 @@ export class Login1Component {
       console.log("todo OK" + JSON.stringify(this.loginForm.value, null, 2));
       console.table(this.loginForm.value);
       //ENVIAR DATOS SERVIDOR EXTERNO para comprobar credenciales
-      this.user.login1(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value).subscribe((data) => {  
+      this.user.login(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value).subscribe((data) => {  
         console.log(JSON.stringify(data));
       });  ;
     }

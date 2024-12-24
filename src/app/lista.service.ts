@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class ListaService {
 
-  private apiUrl = 'http://localhost:80/listas';
+  private apiUrl = 'https://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
