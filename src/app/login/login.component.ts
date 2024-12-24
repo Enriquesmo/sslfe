@@ -62,7 +62,7 @@ export class LoginComponent {
         (data: string) => {  // El servidor devuelve un string (el token)
           if (data) {
             console.log("Usuario logeado");
-
+            this.router.navigate(['/CreateLists']); // Redirigir a la página deseada
             // Almacenar el token en localStorage o sessionStorage
             // localStorage.setItem('cookieEnriqueta', data);  // O sessionStorage.setItem() si prefieres mantenerlo solo durante la sesión
 
@@ -89,7 +89,7 @@ export class LoginComponent {
   }
 
   onContinue() {
-    this.router.navigate(['/MainPage']); // Redirigir a la página deseada
+    this.router.navigate(['/CreateLists']); // Redirigir a la página deseada
   }
 
   onGoToLogin() {

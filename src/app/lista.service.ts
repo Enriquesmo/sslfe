@@ -14,7 +14,19 @@ export class ListaService {
   constructor(private http: HttpClient) {}
 
   crearLista(nombre : string) {
-    return this.http.post<any>(this.apiUrl+ "/crearLista", nombre);
+    let info = {
+      nombre : nombre
+    }
+    return this.http.post('https://localhost:8080/listas/crearLista', nombre).subscribe({
+      next: (response) => {
+        alert('Lista creada con éxito');
+        console.log(response);
+      },
+      error: (err) => {
+        alert('Error al crear la lista.');
+        console.error(err);
+      }
+    });
   }
   aniadirProducto(idLista: string, producto: producto): Observable<lista> {
     let apiUrlEspecifica= this.apiUrl+"/addProducto";
