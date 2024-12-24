@@ -1,0 +1,34 @@
+/* Contenedor del contenido principal */
+.content-container {
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  /* Botón de redirección */
+  .redirect-button {
+    margin-top: 20px;
+  }
+  
+  .redirect-button p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .btn-register {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-register:hover {
+    background-color: #218838;
+  }
+  
