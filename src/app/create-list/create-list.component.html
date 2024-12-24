@@ -1,1 +1,15 @@
-<p>create-list works!</p>
+<div class="create-list-container">
+    <button (click)="abrirFormulario()">Crear Nueva Lista</button>
+  
+    <div *ngIf="mostrarFormulario" class="formulario-crear-lista">
+      <h2>Crear Lista</h2>
+      <input
+        type="text"
+        [(ngModel)]="nombreLista"
+        placeholder="Introduce el nombre de la lista"
+      />
+      <button (click)="crearLista()">Crear</button>
+      <button (click)="cerrarFormulario()">Cancelar</button>
+    </div>
+  </div>
+  

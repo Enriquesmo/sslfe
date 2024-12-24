@@ -1,0 +1,38 @@
+.crear-lista-container {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .formulario-crear-lista {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  input[type='text'] {
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    max-width: 400px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  button:nth-child(2) {
+    background-color: #007bff;
+    color: white;
+    border: none;
+  }
+  
+  button:nth-child(3) {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+  }
+  
