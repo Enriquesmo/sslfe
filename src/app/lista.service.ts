@@ -13,11 +13,10 @@ export class ListaService {
 
   constructor(private http: HttpClient) {}
 
-  crearLista(nombre : string) {
-    let info = {
-      nombre : nombre
-    }
-    return this.http.post('https://localhost:8080/listas/crearLista', nombre).subscribe({
+  crearLista(nombre: string, email: string) {
+    console.log('Creando lista:', nombre, email);
+    let url = `https://localhost:8080/listas/crearLista?nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}`;
+    return this.http.post(url, {}).subscribe({
       next: (response) => {
         alert('Lista creada con éxito');
         console.log(response);
@@ -28,6 +27,7 @@ export class ListaService {
       }
     });
   }
+  
   aniadirProducto(idLista: string, producto: producto): Observable<lista> {
     let apiUrlEspecifica= this.apiUrl+"/addProducto";
     const headers = new HttpHeaders({

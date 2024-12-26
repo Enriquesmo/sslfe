@@ -11,14 +11,15 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ListDetailsComponent } from './list-details/list-details.component';
 import { CreateListComponent } from './create-list/create-list.component';
 import { ChatComponent } from './chat/chat.component';
-
+import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-root',
   standalone: true,
   //imports: [RouterOutlet, Register1Component, Login1Component, GestorListasComponent, DetalleListaComponent, GeolocalizacionComponent],
   imports: [RouterOutlet, LoginComponent, RegisterComponent, MainPageComponent, ListDetailsComponent, CreateListComponent, ChatComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [CookieService]
 })
 export class AppComponent {
   title = 'sslfe';
