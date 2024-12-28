@@ -1,1 +1,80 @@
-<p>list-details works!</p>
+<div class="container">
+  <h2 class="title">Detalles de la Lista</h2>
+  <p class="list-name">
+    <strong>Lista:</strong> 
+    <span *ngIf="!editandoNombre">{{ listaNombre }}</span>
+    <input *ngIf="editandoNombre" [(ngModel)]="nuevoNombreLista" />
+  </p>
+
+  <!-- Botón de editar nombre solo visible para el creador -->
+  <button *ngIf="esCreador && !editandoNombre" (click)="editarNombreLista()" class="btn edit-name-btn">Editar Nombre</button>
+
+  <!-- Botones para aceptar o cancelar cambios de nombre -->
+  <div *ngIf="editandoNombre">
+    <button (click)="guardarNombreLista()" class="btn save-name-btn">Aceptar</button>
+    <button (click)="cancelarEditarNombre()" class="btn cancel-name-btn">Cancelar</button>
+  </div>
+
+  <!-- El resto del contenido permanece igual -->
+  <div class="product-list">
+    <h3 class="subtitle">Productos añadidos</h3>
+    <ul class="products">
+      <li *ngFor="let producto of productosLista; let i = index" class="product-item">
+        <strong>{{ producto.nombre }}</strong> - 
+        <span>{{ producto.unidadesPedidas }} unidades</span>
+
+        <!-- Controles de cantidad -->
+        <div class="quantity-controls">
+          <button 
+            class="btn quantity-btn" 
+            (click)="cambiarCantidad(i, producto, -1)" 
+            [disabled]="producto.unidadesPedidas <= 1">-</button>
+          <span class="cantidad">{{ producto.unidadesPedidas }}</span>
+          <button 
+            class="btn quantity-btn" 
+            (click)="cambiarCantidad(i, producto, 1)"
+            [disabled]="producto.unidadesPedidas >= 10">+</button>
+        </div>
+
+        <!-- Botón de eliminar solo si es el creador -->
+        <button 
+          *ngIf="esCreador" 
+          class="btn delete-product-btn" 
+          (click)="eliminarProducto(i, producto)">
+          Eliminar
+        </button>
+      </li>
+    </ul>
+  </div>
+  
+  <!-- Botón para agregar un nuevo producto -->
+  <button 
+    class="btn add-product-btn" 
+    (click)="toggleAgregarProducto()"
+    [disabled]="productosLista.length >= 10">
+    + Añadir Producto
+  </button>
+  
+  <!-- Formulario para agregar un nuevo producto -->
+  <div *ngIf="mostrarAgregarProducto" class="add-product-form">
+    <label for="nuevoProducto">Producto:</label>
+    <input [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
+    <br />
+
+    <label for="unidadesPedidas">Unidades:</label>
+    <input [(ngModel)]="unidadesPedidas" type="number" min="1" max="10" />
+    <br />
+
+    <button 
+      class="btn save-product-btn" 
+      (click)="aniadirProducto()"
+      [disabled]="productosLista.length >= 10 || !nuevoProducto || unidadesPedidas < 1">
+      Guardar Producto
+    </button>
+  </div>
+  
+  <!-- Mensaje si se alcanza el límite -->
+  <p *ngIf="productosLista.length >= 10" class="error-message">
+    No puedes añadir más de 10 productos a la lista.
+  </p>
+</div>

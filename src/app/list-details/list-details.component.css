@@ -1,0 +1,149 @@
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center; /* Centrar el contenido horizontalmente */
+}
+
+.title {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 10px;
+    text-align: center; /* Centrar el título de la lista */
+}
+
+.list-name {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 15px;
+    text-align: center; /* Centrar el nombre de la lista */
+}
+
+.product-list {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: justify; /* Justificar el contenido del texto */
+}
+
+.products {
+    list-style: none;
+    padding: 0;
+    text-align: left; /* Alinea el texto a la izquierda dentro de los elementos */
+    margin: 0 auto;
+    display: inline-block; /* Permite que el texto tenga un ancho ajustado */
+}
+
+.product-item {
+    font-size: 16px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+    text-align: justify; /* Justificar el contenido del texto */
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+.add-product-form {
+    background-color: #f1f1f1;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: left; /* Alineación de formulario */
+}
+
+.add-product-form input {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: left; /* Alineación dentro del campo de texto */
+}
+
+.save-product-btn {
+    background-color: #28a745;
+}
+
+.save-product-btn:hover {
+    background-color: #218838;
+}
+.delete-product-btn {
+    background-color: #dc3545; /* Rojo */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.delete-product-btn:hover {
+    background-color: #c82333; /* Rojo oscuro */
+}
+.quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.quantity-btn {
+    background-color: #17a2b8; /* Azul claro */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.quantity-btn:hover {
+    background-color: #138496; /* Azul más oscuro */
+}
+
+.cantidad {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 10px;
+    text-align: center;
+    width: 30px;
+}
+.error-message {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  

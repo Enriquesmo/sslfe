@@ -1,1 +1,13 @@
-<p>main-page works!</p>
+<h1>Mis Listas</h1>
+
+<div *ngIf="listas.length > 0; else noListas" class="listas-container">
+  <div *ngFor="let lista of listas; let i = index" class="lista-card">
+    <h3>{{ lista.nombre }}</h3>
+    <button (click)="verDetalles(i)">Ver detalles</button>
+  </div>
+</div>
+
+<ng-template #noListas>
+  <p>No hay listas disponibles para mostrar.</p>
+</ng-template>
+<app-create-list></app-create-list>

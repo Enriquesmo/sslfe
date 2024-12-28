@@ -28,14 +28,20 @@ export class ListaService {
     });
   }
   
-  aniadirProducto(idLista: string, producto: producto): Observable<lista> {
-    let apiUrlEspecifica= this.apiUrl+"/addProducto";
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'IdLista': idLista  // Se pasa el IdLista en la cabecera
-    });
 
-    return this.http.post<any>(apiUrlEspecifica, producto, { headers });
+
+  extraerListas(email: string): Observable<lista[]> {
+    const url = `${this.apiUrl}/listas/getListas`;
+    return this.http.get<lista[]>(url, {
+      params: { email }, // Envía el parámetro 'email'
+    });
   }
+    
+  actualizarNombreLista(listaID: string, nuevoNombre: string) {
+    const url = `${this.apiUrl}/listas/cambiarNombre?idLista=${listaID}&nuevoNombre=${nuevoNombre}`;
+    return this.http.put<any>(url,{});
+  }
+
+
 
 }
