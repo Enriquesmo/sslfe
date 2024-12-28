@@ -28,21 +28,23 @@ export class RegisterComponent {
   registrar() {
     this.respuestaOK = false;
     this.contraseniascoinciden = false;
-    if (this.pwd1 != this.pwd2) {
-      console.error('Las contraseñas no coinciden');
-      this.contraseniascoinciden = true;
-      return;
+
+    if (this.pwd1 !== this.pwd2) {
+        console.error('Las contraseñas no coinciden');
+        this.contraseniascoinciden = true;
+        return;
     }
 
-    this.service.register(this.email!, this.pwd1!, this.pwd2!).subscribe(
-      ok => {
-        console.log('Registro exitoso', ok);
-        this.respuestaOK = true;
-      },
-      error => {
-        console.error('Error en el registro', error);
-      }
-    );
-  }
-  
+    this.service.register(this.email!, this.pwd1!, this.pwd2!).subscribe({
+        next: (ok) => {
+            console.log('Registro exitoso', ok);
+            this.respuestaOK = true;
+        },
+        error: (err) => {
+            alert(err.message); // Muestra el mensaje personalizado
+            console.error('Error en el registro:', err);
+        }
+    });
+}
+
 }

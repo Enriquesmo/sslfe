@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,27 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  register(email: string, pwd1: string, pwd2: string) {
+  register(email: string, pwd1: string, pwd2: string): Observable<any> {
     const info = {
-      email: email,
-      pwd1: pwd1,
-      pwd2: pwd2
+        email: email,
+        pwd1: pwd1,
+        pwd2: pwd2
     };
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json'
+        'Content-Type': 'application/json'
     });
-    return this.http.post<any>(this.apiUrl + "/users/registrar1", info, { headers: headers });
-  }
+
+    return this.http.post<any>(this.apiUrl + "/users/registrar1", info, { headers: headers }).pipe(
+        catchError((error: HttpErrorResponse) => {
+            if (error.status === 403) {
+                // Retorna un error con el mensaje adecuado
+                return throwError(() => new Error('Este correo ya está registrado.'));
+            }
+            return throwError(() => new Error('Error en el registro.'));
+        })
+    );
+}
+
 
   login(email: string, pwd: string): Observable<string> {
     const info = {
@@ -42,6 +52,7 @@ export class UserService {
     );
   }
 
+ 
   isAuthenticated(): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/users/validate-session`, {
       withCredentials: true // Asegura que la cookie se envíe con la solicitud
