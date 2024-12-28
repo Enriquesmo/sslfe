@@ -27,7 +27,7 @@ export class ProductoService {
     return this.http.delete<any>(apiUrlEspecifica);
   }
   
-  modificarProducto(idLista: string, producto: producto): Observable<lista> {
+  modificarProducto( producto: producto): Observable<lista> {
     return this.http.put<any>(`${this.apiUrl}/productos/producto`, producto);
   }
 

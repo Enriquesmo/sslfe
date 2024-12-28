@@ -96,7 +96,7 @@ aniadirProducto(){
     this.productosLista[index].unidadesPedidas = nuevaCantidad;
 
     // Llamar al servicio para actualizar la cantidad en el backend
-    this.productoService.modificarProducto(this.listaID!, this.productosLista[index]).subscribe(
+    this.productoService.modificarProducto( this.productosLista[index]).subscribe(
       (response) => {
         console.log('Producto actualizado correctamente:', response);
       },
