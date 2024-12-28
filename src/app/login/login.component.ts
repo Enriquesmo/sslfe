@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm: FormGroup;
   submitted = false;
-  alreadyAuthenticated = false; // Nueva variable para controlar la vista
+  alreadyAuthenticated = false;
 
   constructor(private formBuilder: FormBuilder, private user: UserService, private router: Router) { 
 
@@ -34,24 +34,19 @@ export class LoginComponent {
       (isAuthenticated: boolean) => {
         if (isAuthenticated) {
           console.log("Sesión activa");
-          this.alreadyAuthenticated = isAuthenticated; // Cambiar la vista si ya está autenticado
-          // Redirige al usuario al dashboard
+          this.alreadyAuthenticated = isAuthenticated;
         } else {
           console.log("No hay sesión activa");
-          // Permite al usuario iniciar sesión
         }
       },
       error => {
-        console.error("Error verificando la sesión:", error);
+        
       }
     );
   }
   
-  
   onSubmit() {
     this.submitted = true;
-
-    // Validación del formulario
     if (this.loginForm.invalid) {
       console.warn("Formulario invalido");
     } else {
@@ -62,22 +57,14 @@ export class LoginComponent {
         (data: string) => {  // El servidor devuelve un string (el token)
           if (data) {
             console.log("Usuario logeado");
-            this.router.navigate(['/CreateLists']); // Redirigir a la página deseada
-            // Almacenar el token en localStorage o sessionStorage
-            // localStorage.setItem('cookieEnriqueta', data);  // O sessionStorage.setItem() si prefieres mantenerlo solo durante la sesión
-
-            // Redirigir a la página de inicio o dashboard
-            // this.router.navigate(['/dashboard']);  // Asegúrate de tener el router configurado para esto
-
+            this.router.navigate(['/MainPage']);
           } else {
             console.log("Usuario no logeado");
-            // Mostrar mensaje de error o alertar al usuario
             alert("Credenciales incorrectas");
           }
         },
         error => {
           console.error("Error en login:", error);
-          // Mostrar un mensaje de error genérico si ocurre un problema con la solicitud
           alert("Hubo un problema al iniciar sesión. Inténtalo de nuevo.");
         }
       );
@@ -85,11 +72,10 @@ export class LoginComponent {
   }
 
   onReset() {
-  
   }
 
   onContinue() {
-    this.router.navigate(['/CreateLists']); // Redirigir a la página deseada
+    this.router.navigate(['/MainPage']); // Redirigir a la página principal
   }
 
   onGoToLogin() {
@@ -109,15 +95,6 @@ export  function createPasswordStrengthValidator(): ValidatorFn {
       const hasNumeric = /[0-9]+/.test(value);
       const passwordValid = hasUpperCase && hasLowerCase && hasNumeric;
             return !passwordValid ? {passwordStrength:true}: null;
-      /**tambien se podría devolver un objeto de este tipo
-       * {
-          passwordStrength: {
-          hasUpperCase: true,
-          hasLowerCase: true,
-          hasNumeric: false
-          }
-        }
-       */
   }
 }
 

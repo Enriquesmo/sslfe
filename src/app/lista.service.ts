@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { producto } from './modelo/producto.model';
 import { lista } from './modelo/lista.model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ListaService {
 
   private apiUrl = 'https://localhost:8080';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   crearLista(nombre: string, email: string) {
     console.log('Creando lista:', nombre, email);
@@ -42,6 +43,15 @@ export class ListaService {
     return this.http.put<any>(url,{});
   }
 
-
+  aceptarInvitacion(listaId: string, token: string, userEmail: string): void {
+    console.log('Aceptando invitación:', listaId, token, userEmail);
+    this.http.post(this.apiUrl+"/accept-invitacion", { listaId: listaId, token: token, emailUsuario: userEmail })
+      .subscribe(() => {
+        alert('Invitación aceptada');
+        this.router.navigate(['/MainPage', listaId]);
+      }, error => {
+        console.error('Error al aceptar la invitación', error);
+      });
+  }
 
 }
