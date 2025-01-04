@@ -6,7 +6,7 @@ import { UserService } from '../user.service';
 import { Token } from '@angular/compiler';
 import { RouterModule } from '@angular/router';
 import { Router } from '@angular/router';
-
+import { CookieService } from 'ngx-cookie-service'; 
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -20,7 +20,7 @@ export class LoginComponent {
   submitted = false;
   alreadyAuthenticated = false;
 
-  constructor(private formBuilder: FormBuilder, private user: UserService, private router: Router) { 
+  constructor(private cookieService: CookieService,private formBuilder: FormBuilder, private user: UserService, private router: Router) { 
 
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -80,6 +80,16 @@ export class LoginComponent {
 
   onGoToLogin() {
     this.alreadyAuthenticated = false; // Volver a la vista del formulario de login
+     // Obtener todas las cookies
+    const cookies = document.cookie.split(";");
+
+    // Eliminar cada cookie encontrada
+    cookies.forEach(cookie => {
+        const cookieName = cookie.split("=")[0].trim();
+        this.cookieService.delete(cookieName, '/');
+    });
+
+    console.log("Todas las cookies eliminadas");
   }
 
 }

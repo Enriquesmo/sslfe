@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagar con Stripe</title>
+    <script src="https://js.stripe.com/v3/"></script> <!-- Incluye la librería de Stripe -->
+    <script src="app.js" defer></script> <!-- Vincula el archivo JavaScript generado -->
+</head>
+<body>
+    <h1>Pagar con Stripe</h1>
+
+    <form id="payment-form">
+        <label for="amount">Importe a pagar (EUR):</label>
+        <input type="number" step="0.01" id="amount" name="amount" placeholder="0.00" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="tuemail@example.com" required>
+        <button type="button" id="pay-button">Ir al pago</button>
+    </form>
+
+    <div id="stripe-form" style="display: none;">
+        <h2>Procesar Pago</h2>
+        <form id="stripe-payment-form">
+            <!-- El formulario de Stripe se genera aquí -->
+        </form>
+        <button type="button" id="confirm-payment-button" style="display: none;">Confirmar Pago</button>
+    </div>
+</body>
+</html>

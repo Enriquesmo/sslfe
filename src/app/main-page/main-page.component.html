@@ -10,4 +10,13 @@
 <ng-template #noListas>
   <p>No hay listas disponibles para mostrar.</p>
 </ng-template>
-<app-create-list></app-create-list>
+
+<!-- Condición para mostrar el componente de creación de listas -->
+<div *ngIf="puedeCrearLista(); else limiteListas">
+  <app-create-list></app-create-list>
+</div>
+
+<!-- Mensaje de advertencia -->
+<ng-template #limiteListas>
+  <p>Lo siento, para crear más de dos listas debes ser usuario Premium.</p>
+</ng-template>

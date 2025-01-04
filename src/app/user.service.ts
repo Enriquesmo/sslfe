@@ -10,11 +10,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  register(email: string, pwd1: string, pwd2: string): Observable<any> {
+  register(email: string, pwd1: string, pwd2: string,isPremium: boolean): Observable<any> {
     const info = {
         email: email,
         pwd1: pwd1,
-        pwd2: pwd2
+        pwd2: pwd2,
+        vip: isPremium
     };
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'
@@ -52,7 +53,12 @@ export class UserService {
     );
   }
 
- 
+  verificarCorreo(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/users/verificar-correo?email=${email}`);
+  }
+  esVip(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/users/verificar-vip?email=${email}`);
+  }
   isAuthenticated(): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/users/validate-session`, {
       withCredentials: true // Asegura que la cookie se envíe con la solicitud

@@ -47,34 +47,36 @@
     </ul>
   </div>
   
+  <div *ngIf="listaID">
+    <p>Haz clic para invitar a alguien a esta lista:</p>
+    <a [href]="generarEnlaceInvitacion()">Invitar a la lista</a>
+  </div>
+  
   <!-- Botón para agregar un nuevo producto -->
   <button 
     class="btn add-product-btn" 
     (click)="toggleAgregarProducto()"
-    [disabled]="productosLista.length >= 10">
+    [disabled]="!vip && productosLista.length >= 10">
     + Añadir Producto
   </button>
-  
-  <!-- Formulario para agregar un nuevo producto -->
-  <div *ngIf="mostrarAgregarProducto" class="add-product-form">
-    <label for="nuevoProducto">Producto:</label>
-    <input [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
-    <br />
+    
+    <!-- Formulario para agregar un nuevo producto -->
+    <div *ngIf="mostrarAgregarProducto" class="add-product-form">
+      <label for="nuevoProducto">Producto:</label>
+      <input [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
+      <br />
+    
+      <label for="unidadesPedidas">Unidades:</label>
+      <input [(ngModel)]="unidadesPedidas" type="number" min="1" max="10" />
+      <br />
+    
+      <button 
+        class="btn save-product-btn" 
+        (click)="aniadirProducto()"
+        [disabled]="!nuevoProducto || unidadesPedidas < 1 || (!vip && productosLista.length >= 10)">
+        Guardar Producto
+      </button>
+    </div>
+    
 
-    <label for="unidadesPedidas">Unidades:</label>
-    <input [(ngModel)]="unidadesPedidas" type="number" min="1" max="10" />
-    <br />
-
-    <button 
-      class="btn save-product-btn" 
-      (click)="aniadirProducto()"
-      [disabled]="productosLista.length >= 10 || !nuevoProducto || unidadesPedidas < 1">
-      Guardar Producto
-    </button>
-  </div>
-  
-  <!-- Mensaje si se alcanza el límite -->
-  <p *ngIf="productosLista.length >= 10" class="error-message">
-    No puedes añadir más de 10 productos a la lista.
-  </p>
 </div>

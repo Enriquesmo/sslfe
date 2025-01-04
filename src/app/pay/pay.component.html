@@ -1,0 +1,24 @@
+<div>
+    <h1>Pagar con Stripe</h1>
+
+    <div>
+        <form id="payment-form">
+            <label for="amount">Importe a pagar (EUR):</label>
+            <input type="number" [(ngModel)]="amount" id="amount" name="amount" placeholder="0.00" required [value]="amount" readonly>
+
+            <label for="email">Email:</label>
+            <input type="email" [(ngModel)]="email" id="email" name="email" placeholder="tuemail@example.com" required>
+
+            <!-- El botón "Ir al pago" estará deshabilitado si el campo email está vacío -->
+            <button type="button" (click)="prepararPago()" [disabled]="!email">Ir al pago</button>
+        </form>
+    </div>
+
+    <div id="stripe-form" style="display: none;">
+        <h2>Procesar Pago</h2>
+        <form id="stripe-payment-form">
+            <!-- Stripe element will appear here -->
+        </form>
+        <button type="button" id="confirm-payment-button" style="display: none;" (click)="confirmarPago()">Confirmar Pago</button>
+    </div>
+</div>
