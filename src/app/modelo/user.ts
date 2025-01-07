@@ -6,7 +6,7 @@ export class User {
     ip?: string;         // Dirección IP (opcional)
     cookie?: string;     // Identificador de cookie
     vip: boolean;        // Usuario VIP o no
-  
+    vipFecha?: number; // Fecha de expiración de la suscripción VIP
     constructor(
       email: string,
       pwd: string,
@@ -14,7 +14,9 @@ export class User {
       token?: string,
       creationTime?: number,
       ip?: string,
-      cookie?: string
+      cookie?: string,
+      vipFecha?: number
+      
     ) {
       this.email = email;
       this.pwd = pwd;
@@ -23,6 +25,7 @@ export class User {
       this.ip = ip;
       this.cookie = cookie;
       this.vip = vip;
+      this.vipFecha = vipFecha;
     }
   }
   

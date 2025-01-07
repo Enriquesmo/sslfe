@@ -15,17 +15,15 @@
       id="premium"
       type="checkbox"
       [(ngModel)]="isPremium"
-      [disabled]="!email ||paymentConfirmed"
+      [disabled]="!email || paymentConfirmed"
       (change)="verificarCorreo()" 
     />
   </div>
-  
-  
-  <!-- Componente de Pago solo si el usuario selecciona "Premium" -->
-  <app-pay *ngIf="isPremium" (paymentCompleted)="handlePaymentCompletion()"></app-pay>
 
-  <!-- Botón para registrar solo si el pago fue completado -->
-  <button [disabled]="!paymentConfirmed&&isPremium" (click)="registrar()">Registrar</button>
+
+
+  <!-- Botón para registrar siempre -->
+  <button [disabled]="!email || !pwd1 || !pwd2" (click)="registrar()">Registrar</button>
 
   <button routerLink="/Login">Volver al Login</button>
 

@@ -1,0 +1,14 @@
+<div *ngIf="errorMessage; else userInfo">
+    <p>{{ errorMessage }}</p>
+  </div>
+  
+  <ng-template #userInfo>
+    <h2>Información de Usuario</h2>
+    <div>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>VIP:</strong> {{ user.vip ? 'Sí' : 'No' }}</p>
+      <p><strong>Fecha de Expiración VIP:</strong> {{ user.vipFecha | date: 'short' }}</p>
+      <button class="delete-btn" (click)="deleteUser()">Eliminar Usuario</button>
+    </div>
+  </ng-template>
+  

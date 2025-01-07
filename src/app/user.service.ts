@@ -10,12 +10,12 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  register(email: string, pwd1: string, pwd2: string,isPremium: boolean): Observable<any> {
+  register(email: string, pwd1: string, pwd2: string): Observable<any> {
     const info = {
         email: email,
         pwd1: pwd1,
         pwd2: pwd2,
-        vip: isPremium
+        
     };
     const headers = new HttpHeaders({
         'Content-Type': 'application/json'
@@ -57,12 +57,19 @@ export class UserService {
     return this.http.get<boolean>(`${this.apiUrl}/users/verificar-correo?email=${email}`);
   }
   esVip(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/users/verificar-vip?email=${email}`);
+    return this.http.get<boolean>(`${this.apiUrl}/users/verificar-vip?email=${email}`,{withCredentials: true});
   }
   isAuthenticated(): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/users/validate-session`, {
+    return this.http.get<boolean>(`${this.apiUrl}/tokens/validate-session`, {
       withCredentials: true // Asegura que la cookie se envíe con la solicitud
     });
+  }
+  getUserInfo(email: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/info`, { params: { email },withCredentials: true }); // Pasa el email como parámetro en la solicitud
+  }
+  
+  deleteUser(email: string): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/users/delete2?email=${email},`,{withCredentials: true});
   }
   
   

@@ -1,0 +1,80 @@
+/* General */
+h2 {
+    font-size: 24px;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  div {
+    margin: 0 auto;
+    max-width: 500px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Error message */
+  .error-message {
+    color: red;
+    font-size: 16px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  /* Información del usuario */
+  .user-info p {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .user-info strong {
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  /* Estilo para mostrar los datos */
+  .user-info {
+    background-color: #ecf0f1;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-info p {
+    font-size: 16px;
+    margin: 5px 0;
+  }
+  
+  .user-info .vip {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .user-info .vip-false {
+    color: red;
+    font-weight: bold;
+  }
+  
+  /* Estilos para el botón de eliminar */
+  .delete-btn {
+    background-color: #e74c3c; /* Rojo */
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .delete-btn:hover {
+    background-color: #c0392b;
+  }
+  
+  .delete-btn:focus {
+    outline: none;
+  }
+  

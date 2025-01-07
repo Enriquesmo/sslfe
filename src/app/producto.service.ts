@@ -19,17 +19,17 @@ export class ProductoService {
       'email': email
     });
   
-    return this.http.post<any>(apiUrlEspecifica, producto, { headers });
+    return this.http.post<any>(apiUrlEspecifica, producto, { headers,withCredentials: true });
   }
 
   eliminarProducto(idLista: string, idProducto: string): Observable<lista> {
     const apiUrlEspecifica = `${this.apiUrl}/productos/producto?idLista=${idLista}&idProducto=${idProducto}`;
-    return this.http.delete<lista>(apiUrlEspecifica);
+    return this.http.delete<lista>(apiUrlEspecifica,{withCredentials: true});
   }
   
   
   modificarProducto(producto: producto): Observable<producto> {
-    return this.http.put<producto>(`${this.apiUrl}/productos/producto`, producto);
+    return this.http.put<producto>(`${this.apiUrl}/productos/producto`, producto,{withCredentials: true});
   }
 
 

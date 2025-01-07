@@ -36,6 +36,19 @@
             [disabled]="producto.unidadesPedidas >= 10">+</button>
         </div>
 
+        <!-- Controles de cantidad comprada -->
+        <div class="quantity-controls">
+          <button 
+            class="btn quantity-btn" 
+            (click)="cambiarCantidadComprado(i, producto, -1)" 
+            [disabled]="producto.unidadesCompradas <= 0">-</button>
+          <span class="cantidad">{{ producto.unidadesCompradas }}</span>
+          <button 
+            class="btn quantity-btn" 
+            (click)="cambiarCantidadComprado(i, producto, 1)"
+            [disabled]="producto.unidadesCompradas >= producto.unidadesPedidas">+</button>
+        </div>
+
         <!-- Botón de eliminar solo si es el creador -->
         <button 
           *ngIf="esCreador" 
@@ -47,10 +60,27 @@
     </ul>
   </div>
   
-  <div *ngIf="listaID">
+  <div *ngIf="mostrarUrl; else mensajePremium">
     <p>Haz clic para invitar a alguien a esta lista:</p>
-    <a [href]="generarEnlaceInvitacion()">Invitar a la lista</a>
+    <div class="url-container">
+      <input 
+        type="text" 
+        [value]="generarEnlaceInvitacion()" 
+        id="urlInvitacion" 
+        readonly
+        class="url-input" />
+      <button 
+        class="btn copy-url-btn" 
+        (click)="copiarUrl()">Copiar URL</button>
+    </div>
   </div>
+  
+  <ng-template #mensajePremium>
+    <div class="premium-message">
+      <p>Para compartir su lista debe ser <strong>Premium</strong> o eliminar algún participante.</p>
+    </div>
+  </ng-template>
+  
   
   <!-- Botón para agregar un nuevo producto -->
   <button 
@@ -79,4 +109,20 @@
     </div>
     
 
+
+
+  <!-- Contenedor lateral para los miembros -->
+  <div class="sidebar" *ngIf="esCreador">
+    <h3 class="sidebar-title">Miembros de la lista</h3>
+    <ul class="member-list">
+      <li *ngFor="let miembro of lista.emailsUsuarios; let i = index" class="member-item">
+        <span>{{ miembro }}</span>
+        <button 
+          class="btn remove-member-btn" 
+          (click)="eliminarMiembro(miembro)">
+          Eliminar
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>

@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from '../user.service';
 import { RouterModule } from '@angular/router';
 import { PayComponent } from '../pay/pay.component';
+import { Router } from '@angular/router'; // Importamos el router
+import { CookieService } from 'ngx-cookie-service'; 
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -23,7 +25,7 @@ export class RegisterComponent {
   paymentConfirmed: boolean = false; // Controla si el pago fue confirmado
   correoExiste: boolean = false; // Verifica si el correo ya está registrado
 
-  constructor(private service: UserService) {
+  constructor(private service: UserService,private router: Router,private cookieService: CookieService) {
     this.respuestaOK = false;
     this.contraseniascoinciden = false;
   }
@@ -38,15 +40,43 @@ export class RegisterComponent {
       return;
     }
 
-    if (!this.paymentConfirmed && this.isPremium) {
-      alert('El pago debe ser completado antes de registrarse');
-      return; // No permite registrar hasta que el pago se complete
-    }
-
-    this.service.register(this.email!, this.pwd1!, this.pwd2!,this.isPremium).subscribe({
+    // Realiza el registro
+    this.service.register(this.email!, this.pwd1!, this.pwd2!).subscribe({
       next: (ok) => {
         console.log('Registro exitoso', ok);
         this.respuestaOK = true;
+                  // Si no es Premium, redirige a la página principal
+                  const cookies = document.cookie.split(";");
+
+                  // Eliminar cada cookie encontrada
+                  cookies.forEach(cookie => {
+                      const cookieName = cookie.split("=")[0].trim();
+                      this.cookieService.delete(cookieName, '/');
+                  });
+              
+                  console.log("Todas las cookies eliminadas");
+                this.service.login(this.email!, this.pwd1!).subscribe(
+                (data: string) => {  // El servidor devuelve un string (el token)
+                  if (data) {
+                    console.log("Usuario logeado");
+                    
+                  } else {
+                    console.log("Usuario no logeado");
+                    alert("Credenciales incorrectas");
+                  }
+                },
+                error => {
+                  console.error("Error en login:", error);
+                  alert("Hubo un problema al iniciar sesión. Inténtalo de nuevo.");
+                }
+              );
+        // Si es Premium, redirige a la página de pagos
+        if (this.isPremium) {
+          
+          this.router.navigate(['/Pagos'], { queryParams: { email: this.email } });
+        } else {
+          this.router.navigate(['/MainPage']);
+        }
       },
       error: (err) => {
         alert(err.message); // Muestra el mensaje personalizado

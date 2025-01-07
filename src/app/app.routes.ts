@@ -7,6 +7,7 @@ import { CreateListComponent } from './create-list/create-list.component';
 import { ChatComponent } from './chat/chat.component';
 import { InvitacionComponent } from './invitacion/invitacion.component';
 import { PayComponent } from './pay/pay.component';
+import { UserComponent } from './user/user.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'Login', pathMatch: 'full' }, // Ruta predeterminada que redirige al Login
     { path: 'Login', component: LoginComponent },
@@ -16,5 +17,6 @@ export const routes: Routes = [
     { path: 'CreateLists', component: CreateListComponent },
     { path: 'Chat', component: ChatComponent },
     { path: 'invitacion/:listaId', component: InvitacionComponent },
-    { path: 'Pagos', component: PayComponent }
+    { path: 'Pagos', component: PayComponent },
+    { path: 'User', component: UserComponent }
 ];

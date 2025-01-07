@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common'; // Importamos CommonModule
 import { ListaService } from '../lista.service';
 import { UserService } from '../user.service';
 import { CookieService } from 'ngx-cookie-service';
+import { lista } from '../modelo/lista.model';
 @Component({
   selector: 'app-create-list',
   standalone: true,
@@ -17,7 +19,8 @@ export class CreateListComponent {
   nombreLista = '';
   vip = false;
   cantidadListas = 0;
-  constructor(private http: HttpClient, private lista: ListaService,private userService: UserService, private cookieService: CookieService) {}
+  listaNueva?: lista;
+  constructor(private http: HttpClient, private lista: ListaService,private userService: UserService, private cookieService: CookieService,private router: Router) {}
 
   abrirFormulario() {
     this.mostrarFormulario = true;
@@ -36,11 +39,18 @@ export class CreateListComponent {
       alert('El nombre de la lista no puede estar vacío.');
       return;
     }
-    const listaData = { nombre: this.nombreLista };
-    this.lista.crearLista(this.nombreLista, email );
+    //const listaData = { nombre: this.nombreLista };
+    this.lista.crearLista(this.nombreLista, email ).subscribe({
+      next: (data) => {
+        this.listaNueva = data;
+        console.log('Lista creada:', this.listaNueva);
+        sessionStorage.setItem('listaSeleccionada', JSON.stringify(this.listaNueva));
+        this.router.navigate(['/ListDetails']);
+      }
+    });
   }
-  alert('No puedes crear más listas');
   }
+
   esVip(email: string): void {
     this.userService.esVip(email).subscribe({
       next: (data) => {

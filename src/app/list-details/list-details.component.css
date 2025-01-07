@@ -146,4 +146,106 @@
     font-size: 14px;
     margin-top: 10px;
   }
+ 
+/* Estilos para el contenedor del enlace de invitación */
+.url-container {
+    margin-top: 20px;
+    text-align: center; /* Centrar los elementos */
+    margin-bottom: 20px; /* Agregar margen inferior para separar de otros elementos */
+}
+
+/* Estilos para el campo de texto que muestra la URL */
+.url-input {
+    width: calc(100% - 40px); /* Hacerlo casi todo el ancho */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    text-align: center; /* Centrar el texto */
+    display: inline-block;
+}
+
+/* Estilos para el botón de copiar */
+.copy-url-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #17a2b8; /* Azul claro */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px; /* Separar del siguiente elemento */
+}
+
+.copy-url-btn:hover {
+    background-color: #138496; /* Azul más oscuro */
+}
+
+/* Estilos para el botón de añadir producto */
+.add-product-btn {
+    margin-top: 0px; /* Agregar más espacio arriba del botón */
+    margin-bottom: 20px; /* Agregar margen inferior para separar de otros elementos */
+}
+.premium-message {
+    background-color: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 15px;
+    text-align: center;
+    color: #333;
+    font-family: Arial, sans-serif;
+    margin-top: 15px;
+  }
+  
+  .premium-message p {
+    margin: 0;
+    font-size: 14px;
+  }
+  
+  .premium-message strong {
+    color: #007bff; /* Azul destacable */
+  }
+
+
+  .sidebar {
+    width: 200px; /* Establecemos el ancho de la barra lateral */
+    position: absolute; /* La posicionamos de manera absoluta */
+    top: 20px; /* Alineada en la parte superior */
+    right: 20px; /* Alineada a la derecha */
+    background-color: #f4f4f4; /* Fondo para diferenciar la barra */
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+.sidebar-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.member-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.member-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.remove-member-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.remove-member-btn:hover {
+    background-color: #ff0000;
+}
   

@@ -1,10 +1,10 @@
 import { Component, AfterViewInit,Output, EventEmitter } from '@angular/core';
 import { loadStripe, Stripe, StripeElements, StripeCardElement } from '@stripe/stripe-js';
 import { PagosService } from '../pagos.service';
-
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Asegúrate de importar FormsModule
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-pay',
   standalone: true,
@@ -21,8 +21,11 @@ export class PayComponent implements AfterViewInit {
   amount: number = 3; // Variable para el monto ingresado
   email: string = ''; // Variable para el email del usuario
   @Output() paymentCompleted = new EventEmitter<void>(); // Emitirá el evento cuando el pago sea completado
-  constructor(private pagosService: PagosService) {
+  constructor(private pagosService: PagosService,private route: ActivatedRoute,private router: Router) {
     this.stripePromise = loadStripe('pk_test_51Q7a1xAINUUPHMJgyxRmYKZ1e3KjJd9zKZuOprAy4cpSkYNru0pnB5hasdKPiNA4bIWT3sw75abL73g7iHbWct3G00nBjDwrco');
+    this.route.queryParams.subscribe(params => {
+      this.email = params['email'] || '';  // Si no se pasa el email, lo dejamos vacío
+    });
   }
 
   ngAfterViewInit() {
@@ -85,7 +88,8 @@ confirmarPago() {
         next: (response) => {
           if (response.message) {
             alert(response.message);  // Muestra el mensaje de éxito recibido del backend
-            this.paymentCompleted.emit(); // Emitimos el evento de pago completado
+            this.paymentCompleted.emit(); // Emitimos el evento de pago completa
+            this.router.navigate(['/MainPage']);
           } else {
             alert('Respuesta inesperada del backend');
           }
