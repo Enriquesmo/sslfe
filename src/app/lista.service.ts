@@ -46,6 +46,17 @@ eliminarMiembro(listaId: string, email: string): Observable<any> {
   return this.http.delete(url,{withCredentials: true});
 }
 
+eliminarLista(idLista: string, email: string): Observable<string> {
+  console.log("Eliminando lista con ID: ${idLista} y email: ${email}");
+  const url = '${this.apiUrl}/listas/eliminarLista';
+  
+  // Usa .delete con el tipo de respuesta 'text' en lugar de 'json'
+  return this.http.delete<string>(url, {
+    params: { idLista, email },
+    responseType: 'text' as 'json' // Especifica que la respuesta es texto, no JSON
+  });
+}
+
 //obtenerProductosDeLista(idLista: string): Observable<producto[]> {
   //const url = `${this.apiUrl}/producto?idLista=${idLista}`;  // La URL corresponde al endpoint que creamos en el backend
   //return this.http.get<producto[]>(url);  // Realizamos una solicitud GET
@@ -61,5 +72,6 @@ eliminarMiembro(listaId: string, email: string): Observable<any> {
       //console.error('Error al aceptar la invitación', error);
     //});
   //}
+
 
 }

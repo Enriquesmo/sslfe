@@ -92,7 +92,24 @@ export class LoginComponent {
     console.log("Todas las cookies eliminadas");
   }
 
+  recuperarContrasena(): void {
+    const email = prompt('Introduce tu correo electrónico para recuperar la contraseña:');
+    if (email) {
+      this.user.recuperarContrasena(email).subscribe({
+        next: (response: string) => {
+          alert(response); // Mensaje del backend
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Hubo un error al recuperar la contraseña.');
+        }
+      });
+    }
+  }
+  
+
 }
+
 
 export  function createPasswordStrengthValidator(): ValidatorFn {
   return (control:AbstractControl) : ValidationErrors | null => {
@@ -107,5 +124,7 @@ export  function createPasswordStrengthValidator(): ValidatorFn {
             return !passwordValid ? {passwordStrength:true}: null;
   }
 }
+
+
 
 

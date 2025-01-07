@@ -66,4 +66,20 @@ export class MainPageComponent {
   puedeCrearLista(): boolean {
     return this.vip || this.listas.length < 2;
   }
+
+  eliminarLista(idLista: string): void {
+    if (confirm('¿Estás seguro de que deseas eliminar esta lista?')) {
+      this.listaService.eliminarLista(idLista, this.email).subscribe({
+        next: (response) => {
+          alert('Lista eliminada correctamente');
+          this.cargarListas(); // Recargar las listas después de eliminar
+        },
+        error: (err) => {
+          console.error(err);
+          alert('Hubo un error al eliminar la lista');
+          console.log('Error al eliminar la lista:', err);
+        }
+      });
+    }
+  }
 }

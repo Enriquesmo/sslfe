@@ -12,7 +12,7 @@ export class PagosComponent implements AfterViewInit {
 
   constructor() {
     // Carga de Stripe de forma asíncrona con tu clave pública
-    this.stripePromise = loadStripe('pk_test_51Q7a1xAINUUPHMJgyxRmYKZ1e3KjJd9zKZuOprAy4cpSkYNru0pnB5hasdKPiNA4bIWT3sw75abL73g7iHbWct3G00nBjDwrco');
+    this.stripePromise = loadStripe('pk_test_51Q7a2rAePCPcGYrDmy7hbcIelpPaDkAUxpGrvSLINqaXxIa6Ev5l9yvjnFUUuVl9h9g5TjX3xa2JSZuV0B8xpZRX00l0yOd3vI');
   }
 
   ngAfterViewInit() {

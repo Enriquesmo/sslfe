@@ -72,5 +72,8 @@ export class UserService {
     return this.http.delete<any>(`${this.apiUrl}/users/delete2?email=${email},`,{withCredentials: true});
   }
   
-  
+  recuperarContrasena(email: string): Observable<string> {
+    const url = '${this.apiUrl}/users/recuperarContrasena';
+    return this.http.post<string>(url, { email }, { responseType: 'text' as 'json' });
+  }
 }

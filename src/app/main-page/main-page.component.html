@@ -4,6 +4,7 @@
   <div *ngFor="let lista of listas; let i = index" class="lista-card">
     <h3>{{ lista.nombre }}</h3>
     <button (click)="verDetalles(i)">Ver detalles</button>
+    <button (click)="eliminarLista(lista.id)">Eliminar</button>
   </div>
 </div>
 
