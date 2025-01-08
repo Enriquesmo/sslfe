@@ -2,8 +2,8 @@
   <div class="custom-form">
     <h2>Ya has iniciado sesión</h2>
     <p>¿Qué deseas hacer?</p>
-    <button class="btn btn-primary" (click)="onContinue()">Continuar</button>
-    <button class="btn btn-secondary" (click)="onGoToLogin()">Volver al Login</button>
+    <button name="aceptarCookie" class="btn btn-primary" (click)="onContinue()">Continuar</button>
+    <button name="rechazarCookie" class="btn btn-secondary" (click)="onGoToLogin()">Volver al Login</button>
   </div>
 </div>
 
@@ -30,6 +30,7 @@
       type="password"
       placeholder="Introduce tu contraseña"
       formControlName="pwd"
+      name = "pwd"
     />
     <div class="invalid-feedback" *ngIf="this.loginForm.controls['pwd'].errors">
       <div *ngIf="this.loginForm.controls['pwd'].errors?.['required']">
@@ -43,7 +44,7 @@
       </div>
     </div>
     
-    <button class="btn btn-primary" [disabled]="loginForm.invalid">Logarse</button>
+    <button name="continuar" class="btn btn-primary" [disabled]="loginForm.invalid">Logarse</button>
     <button class="btn btn-secondary" type="reset" (click)="onReset()">Cancelar</button>
     
     <a class="register-link" routerLink="/Register">¿No tienes cuenta? ¡Regístrate ahora!</a>

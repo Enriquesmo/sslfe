@@ -15,18 +15,16 @@
       id="premium"
       type="checkbox"
       [(ngModel)]="isPremium"
-      [disabled]="!email || paymentConfirmed"
-      (change)="verificarCorreo()" 
+      [disabled]="!email || !pwd1 || !pwd2"
     />
   </div>
 
 
 
   <!-- Botón para registrar siempre -->
-  <button [disabled]="!email || !pwd1 || !pwd2" (click)="registrar()">Registrar</button>
+  <button name="btn_registrar" [disabled]="!email || !pwd1 || !pwd2" (click)="registrar()">Registrar</button>
 
-  <button routerLink="/Login">Volver al Login</button>
+  <button name="btn_volver_al_Login" routerLink="/Login">Volver al Login</button>
 
   <span *ngIf="respuestaOK" class="respuesta">Registro exitoso.</span>
-  <span *ngIf="contraseniascoinciden">Las contraseñas no coinciden.</span>
 </div>
