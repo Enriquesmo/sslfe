@@ -53,9 +53,9 @@ export class LoginComponent {
       console.log("todo OK", JSON.stringify(this.loginForm.value, null, 2));
 
       // Enviar datos al servidor para comprobar credenciales
-      this.user.login(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value).subscribe(
-        (data: string) => {  // El servidor devuelve un string (el token)
-          if (data) {
+      this.user.login(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value).subscribe({
+        next:(response) => {  // El servidor devuelve un string (el token)
+          if (response) {
             console.log("Usuario logeado");
             this.router.navigate(['/MainPage']);
           } else {
@@ -63,11 +63,14 @@ export class LoginComponent {
             alert("Credenciales incorrectas");
           }
         },
-        error => {
-          console.error("Error en login:", error);
-          alert("Hubo un problema al iniciar sesión. Inténtalo de nuevo.");
+        error: (err) => {
+          console.error('Error en login:', err);
+  
+          // Extrae el mensaje del error devuelto por el backend
+          const errorMessage = err.error;
+          alert(`Hubo un error en login: ${errorMessage}`);
         }
-      );
+    });
     }
   }
 

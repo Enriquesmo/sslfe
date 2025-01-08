@@ -21,7 +21,7 @@ import { PayComponent } from './pay/pay.component';
   providers: [CookieService]
 })
 export class AppComponent {
-  title = 'sslfe';
+  title = 'Tus listas de la compra';
 
   constructor() {
   }

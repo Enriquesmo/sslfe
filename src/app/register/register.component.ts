@@ -20,25 +20,25 @@ export class RegisterComponent {
   pwd1?: string;
   pwd2?: string;
   respuestaOK?: boolean;
-  contraseniascoinciden?: boolean;
+  //contraseniascoinciden?: boolean;
   isPremium: boolean = false; // Controla si el usuario ha seleccionado Premium
-  paymentConfirmed: boolean = false; // Controla si el pago fue confirmado
-  correoExiste: boolean = false; // Verifica si el correo ya está registrado
+  //paymentConfirmed: boolean = false; // Controla si el pago fue confirmado
+ // correoExiste: boolean = false; // Verifica si el correo ya está registrado
 
   constructor(private service: UserService,private router: Router,private cookieService: CookieService) {
     this.respuestaOK = false;
-    this.contraseniascoinciden = false;
+    //this.contraseniascoinciden = false;
   }
 
   registrar() {
     this.respuestaOK = false;
-    this.contraseniascoinciden = false;
+    //this.contraseniascoinciden = false;
 
-    if (this.pwd1 !== this.pwd2) {
-      alert('Las contraseñas no coinciden');
-      this.contraseniascoinciden = true;
-      return;
-    }
+    //if (this.pwd1 !== this.pwd2) {
+      //alert('Las contraseñas no coinciden');
+      //this.contraseniascoinciden = true;
+      //return;
+    //}
 
     // Realiza el registro
     this.service.register(this.email!, this.pwd1!, this.pwd2!).subscribe({
@@ -59,64 +59,61 @@ export class RegisterComponent {
                 (data: string) => {  // El servidor devuelve un string (el token)
                   if (data) {
                     console.log("Usuario logeado");
-                    
-                  } else {
-                    console.log("Usuario no logeado");
-                    alert("Credenciales incorrectas");
+                    if (this.isPremium) {
+          
+                      this.router.navigate(['/Pagos'], { queryParams: { email: this.email } });
+                    } else {
+                      this.router.navigate(['/MainPage']);
+                    }
                   }
                 },
                 error => {
                   console.error("Error en login:", error);
-                  alert("Hubo un problema al iniciar sesión. Inténtalo de nuevo.");
+                  alert("Hubo un problema al iniciar sesión. Inténtalo de nuevo: " + error.message);
                 }
               );
         // Si es Premium, redirige a la página de pagos
-        if (this.isPremium) {
-          
-          this.router.navigate(['/Pagos'], { queryParams: { email: this.email } });
-        } else {
-          this.router.navigate(['/MainPage']);
-        }
       },
       error: (err) => {
-        alert(err.message); // Muestra el mensaje personalizado
+        alert(err.error.message); // Muestra el mensaje personalizado
         console.error('Error en el registro:', err);
       }
     });
+
   }
-  verificarCorreo() {
-    if (!this.email) {
-      this.isPremium = false; // Desactiva el checkbox si no hay correo
-      alert('Por favor, introduce un correo antes de activar el checkbox.');
-      return;
-    }
+  //verificarCorreo() {
+    //if (!this.email) {
+      //this.isPremium = false; // Desactiva el checkbox si no hay correo
+      //alert('Por favor, introduce un correo antes de activar el modo premium.');
+      //return;
+    //}
 
     // Llama al backend para verificar si el correo ya está registrado
-    this.service.verificarCorreo(this.email).subscribe({
-      next: (existe) => {
-        this.correoExiste = existe; // Establece si el correo existe
-        if (existe) {
-          this.isPremium = false;
-          console.log('El correo ya existe en la base de datos.');
+    //this.service.verificarCorreo(this.email).subscribe({
+      //next: (existe) => {
+        //this.correoExiste = existe; // Establece si el correo existe
+        //if (existe) {
+          //this.isPremium = false;
+          //console.log('El correo ya existe en la base de datos.');
          
           
-        } else {
-          console.log('El correo no existe. Continúa con el proceso.');
-        }
-      },
-      error: (err) => {
-        this.isPremium = false; // Desactiva el checkbox si hay un error
-        console.error('Error al verificar el correo:', err);
-        alert('Hubo un error al verificar el correo.');
+        //} else {
+          //console.log('El correo no existe. Continúa con el proceso.');
+        //}
+      //},
+      //error: (err) => {
+        //this.isPremium = false; // Desactiva el checkbox si hay un error
+        //console.error('Error al verificar el correo:', err);
+        //alert('Hubo un error al verificar el correo.');
        
-      }
-    });
-  }
+      //}
+    //});
+  //}
   
   // Esta función se ejecuta cuando el pago se completa
-  handlePaymentCompletion() {
-    this.paymentConfirmed = true; // Ahora el pago está confirmado
-  }
+ // handlePaymentCompletion() {
+   // this.paymentConfirmed = true; // Ahora el pago está confirmado
+  //}
 
 
 }

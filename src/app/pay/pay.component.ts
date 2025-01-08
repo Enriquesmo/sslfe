@@ -53,7 +53,7 @@ prepararPago() {
 
   // Usamos el servicio para preparar la transacción y obtener el client_secret
   this.pagosService.prepararTransaccion(this.amount).subscribe({
-    next: (clientSecret: string) => {
+    next: (clientSecret) => {
       console.log('Client Secret recibido:', clientSecret);
       this.clientSecret = clientSecret; // Asignamos el client_secret recibido
       document.getElementById('stripe-form')!.style.display = 'block';
@@ -61,8 +61,8 @@ prepararPago() {
       document.getElementById('confirm-payment-button')!.style.display = 'block';
     },
     error: (error) => {
-      console.error('Error al preparar la transacción:', error);
-      alert('Hubo un problema al intentar procesar el pago. Detalles: ' + error.message);
+      console.error('Error al preparar la transacción:', error.error);
+      alert('Hubo un problema al intentar procesar el pago. Detalles: ' + error.error);
     }
   });
   
@@ -95,6 +95,7 @@ confirmarPago() {
           }
         },
         error: (confirmError) => {
+          alert('Error al confirmar el pago: ' + confirmError.error.message);
           console.error('Error al confirmar el pago:', confirmError);
           alert('Hubo un problema al confirmar el pago.');
         }

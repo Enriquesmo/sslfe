@@ -31,7 +31,7 @@ export class MainPageComponent {
   ngOnInit(): void {
     this.email = this.cookieService.get('userEmail');
     this.cargarListas();
-    this.esVip(this.email);
+
   }
 
   cargarListas(): void {
@@ -41,6 +41,7 @@ export class MainPageComponent {
         console.log('Listas cargadas:', this.listas);
       },
       error: (err) => {
+        alert(err.error?.message || 'Error al cargar las listas.');
         console.error('Error al cargar las listas:', err);
       },
     });
@@ -51,35 +52,28 @@ export class MainPageComponent {
     this.router.navigate(['/ListDetails']);
   }
 
-  esVip(email: string): void {
-    this.userService.esVip(email).subscribe({
-      next: (data) => {
-        this.vip = data;
-        console.log('Es VIP:', this.vip);
-      },
-      error: (err) => {
-        console.error('Error al verificar si es VIP:', err);
-      },
-    });
-  }
 
-  puedeCrearLista(): boolean {
-    return this.vip || this.listas.length < 2;
-  }
+
 
   eliminarLista(idLista: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar esta lista?')) {
       this.listaService.eliminarLista(idLista, this.email).subscribe({
         next: (response) => {
-          alert('Lista eliminada correctamente');
-          this.cargarListas(); // Recargar las listas después de eliminar
+          //if(response){
+            alert(response);
+            this.cargarListas(); // Recargar las listas después de eliminar
+          //}
+  
         },
         error: (err) => {
-          console.error(err);
-          alert('Hubo un error al eliminar la lista');
-          console.log('Error al eliminar la lista:', err);
+          console.error('Error al eliminar la lista:', err);
+  
+          // Extrae el mensaje del error devuelto por el backend
+          const errorMessage = err.error?.message || 'Error desconocido al eliminar la lista.';
+          alert(`Hubo un error al eliminar la lista: ${errorMessage}`);
         }
       });
     }
   }
+  
 }

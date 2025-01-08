@@ -21,15 +21,7 @@ export class UserService {
         'Content-Type': 'application/json'
     });
 
-    return this.http.post<any>(this.apiUrl + "/users/registrar1", info, { headers: headers }).pipe(
-        catchError((error: HttpErrorResponse) => {
-            if (error.status === 403) {
-                // Retorna un error con el mensaje adecuado
-                return throwError(() => new Error('Este correo ya está registrado.'));
-            }
-            return throwError(() => new Error('Error en el registro.'));
-        })
-    );
+    return this.http.post<any>(this.apiUrl + "/users/registrar1", info, { headers: headers });
 }
 
 
@@ -53,9 +45,9 @@ export class UserService {
     );
   }
 
-  verificarCorreo(email: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiUrl}/users/verificar-correo?email=${email}`);
-  }
+ // verificarCorreo(email: string): Observable<boolean> {
+   // return this.http.get<boolean>(`${this.apiUrl}/users/verificar-correo?email=${email}`);
+  //}
   esVip(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/users/verificar-vip?email=${email}`,{withCredentials: true});
   }
@@ -73,7 +65,12 @@ export class UserService {
   }
   
   recuperarContrasena(email: string): Observable<string> {
-    const url = '${this.apiUrl}/users/recuperarContrasena';
-    return this.http.post<string>(url, { email }, { responseType: 'text' as 'json' });
+    const url = `${this.apiUrl}/users/recuperarContrasena`;
+    return this.http.post<string>(url, { email }, { responseType: 'text' as 'json',withCredentials: true });
   }
+
+  enviarCorreoAlUsuario(emailData: any) {
+    return this.http.post(`${this.apiUrl}/users/send-email`, emailData);
+  }
 }
+

@@ -48,12 +48,13 @@ eliminarMiembro(listaId: string, email: string): Observable<any> {
 
 eliminarLista(idLista: string, email: string): Observable<string> {
   console.log("Eliminando lista con ID: ${idLista} y email: ${email}");
-  const url = '${this.apiUrl}/listas/eliminarLista';
+  const url = `${this.apiUrl}/listas/eliminarLista`;
   
   // Usa .delete con el tipo de respuesta 'text' en lugar de 'json'
   return this.http.delete<string>(url, {
     params: { idLista, email },
-    responseType: 'text' as 'json' // Especifica que la respuesta es texto, no JSON
+    responseType: 'text' as 'json',
+    withCredentials: true
   });
 }
 

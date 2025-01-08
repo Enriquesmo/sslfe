@@ -17,7 +17,7 @@ import { lista } from '../modelo/lista.model';
 export class CreateListComponent {
   mostrarFormulario = false;
   nombreLista = '';
-  vip = false;
+  //vip = false;
   cantidadListas = 0;
   listaNueva?: lista;
   constructor(private http: HttpClient, private lista: ListaService,private userService: UserService, private cookieService: CookieService,private router: Router) {}
@@ -33,35 +33,37 @@ export class CreateListComponent {
 
   crearLista() {
     const email = this.cookieService.get('userEmail');
-    if (this.vip || this.cantidadListas < 2 ) {
-    console.log('Creando lista:', this.nombreLista, email);
-    if (this.nombreLista.trim() === '') {
-      alert('El nombre de la lista no puede estar vacío.');
-      return;
-    }
-    //const listaData = { nombre: this.nombreLista };
-    this.lista.crearLista(this.nombreLista, email ).subscribe({
-      next: (data) => {
-        this.listaNueva = data;
-        console.log('Lista creada:', this.listaNueva);
-        sessionStorage.setItem('listaSeleccionada', JSON.stringify(this.listaNueva));
-        this.router.navigate(['/ListDetails']);
-      }
-    });
-  }
-  }
+   // if (this.vip || this.cantidadListas < 2) {
 
-  esVip(email: string): void {
-    this.userService.esVip(email).subscribe({
-      next: (data) => {
-        this.vip = data;
-        console.log('Es VIP:', this.vip);
-      },
-      error: (err) => {
-        console.error('Error al verificar si es VIP:', err);
-      },
-    });
+  
+      this.lista.crearLista(this.nombreLista, email).subscribe({
+        next: (data) => {
+          this.listaNueva = data;
+          console.log('Lista creada:', this.listaNueva);
+          sessionStorage.setItem('listaSeleccionada', JSON.stringify(this.listaNueva));
+          this.router.navigate(['/ListDetails']);
+        },
+        error: (err) => {
+          const errorMessage = err.error?.message || 'Error desconocido al crear la lista.';
+          alert(errorMessage);
+          console.error('Error al crear la lista:', err);
+        }
+      });
+    //}
   }
+  
+
+  //esVip(email: string): void {
+    //this.userService.esVip(email).subscribe({
+      //next: (data) => {
+        //this.vip = data;
+        //console.log('Es VIP:', this.vip);
+      //},
+      //error: (err) => {
+        //console.error('Error al verificar si es VIP:', err);
+      //},
+    //});
+  //}
   cantListas(email: string): void {
     this.lista.extraerListas(email).subscribe({
       next: (data) => {
@@ -69,6 +71,7 @@ export class CreateListComponent {
         console.log('Cantidad de listas:', this.cantidadListas);
       },
       error: (err) => {
+        alert(err.error?.message || 'Error al verificar la cantidad de listas.');
         console.error('Error al verificar la cantidad de listas:', err);
       },
     });
