@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { lista } from '../modelo/lista.model';
 import { WebSocketSubject } from 'rxjs/webSocket';
 
+
 @Component({
   selector: 'app-list-details',
   standalone: true,
@@ -33,8 +34,13 @@ export class ListDetailsComponent implements OnInit {
   email: string = '';
   vip: boolean = false; 
   mostrarUrl: boolean = true;
+  mostrarModal: boolean = false;
+  emailDestino: string = '';
+  mostrarBotonCompartir: boolean = true;
+
 
   private ws!: WebSocketSubject<any>;
+  http: any;
   constructor(
     private productoService: ProductoService,
     private listaService: ListaService,
@@ -45,6 +51,7 @@ export class ListDetailsComponent implements OnInit {
   ) {
     this.email = this.cookieService.get('userEmail');
   }
+  
 
   ngOnInit(): void {
     // Recuperar la lista desde sessionStorage
@@ -70,6 +77,8 @@ export class ListDetailsComponent implements OnInit {
     this.connectWebSocket();
     if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
       this.mostrarUrl = false; // No mostrar la URL
+      this.mostrarBotonCompartir = false;
+
     }
   }
 
@@ -144,8 +153,10 @@ export class ListDetailsComponent implements OnInit {
       console.log("eliminado:", mensaje);
       if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
         this.mostrarUrl = false;
+        this.mostrarBotonCompartir = false;
       } else {
         this.mostrarUrl = true;
+        this.mostrarBotonCompartir = true;
       }
       const emailEliminado = mensaje.split(":")[1]?.trim();
       if (emailEliminado && emailEliminado === this.email) {
@@ -156,8 +167,10 @@ export class ListDetailsComponent implements OnInit {
       console.log("nuevo miembro: :", mensaje);
       if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
         this.mostrarUrl = false;
+        this.mostrarBotonCompartir = false;
       } else {
         this.mostrarUrl = true;
+        this.mostrarBotonCompartir = true;
       }
     } else {
       console.log("Otro tipo de mensaje:", mensaje);
@@ -184,14 +197,18 @@ export class ListDetailsComponent implements OnInit {
       next: (data) => {
         this.vip = data;
         console.log('Es VIP:', this.vip);
+        console.log('Es VIP:', this.vip);
         if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
           this.mostrarUrl = false;
+          this.mostrarBotonCompartir = false;
         } else {
           this.mostrarUrl = true;
+          this.mostrarBotonCompartir = true;
         }
       },
       error: (err) => {
-        console.error('Error al verificar si es VIP:', err);
+        console.error('Error al verificar si es VIP:', err.error?.message);
+        alert(err.error?.message || 'Error al verificar si es VIP');
       },
     });
   }
@@ -232,6 +249,7 @@ export class ListDetailsComponent implements OnInit {
         this.unidadesCompradas = 0;
       },
       (error) => {
+        alert(error.error?.message || 'Error al añadir el producto');
         console.error('Error al almacenar el producto:', error);
       }
     );
@@ -255,6 +273,59 @@ export class ListDetailsComponent implements OnInit {
   // Devuelve la URL completa como un string
   return fullUrl;
 }
+
+// Método para abrir el modal
+abrirModal() {
+  this.mostrarModal = true;
+}
+
+// Método para cerrar el modal
+cerrarModal() {
+  this.mostrarModal = false;
+  this.emailDestino = '';
+}
+
+enviarEmail() {
+  if (!this.emailDestino) {
+    alert('Por favor, introduce un correo válido.');
+    return;
+  }
+
+  const urlInvitacion = this.generarEnlaceInvitacion();
+  const emailData = {
+    destinatario: this.emailDestino,
+    asunto: 'Invitación a la lista de compras',
+    cuerpo: `Haz clic en el siguiente enlace para unirte a la lista: <a href="${urlInvitacion}">${urlInvitacion}</a>`,
+  };
+  
+  interface EmailResponse {
+    message: string;
+  }
+  
+  this.userService.enviarCorreoAlUsuario(emailData).subscribe(
+    (response: any) => {
+      console.log('Respuesta del servidor:', response);
+      if (response.message === 'Correo enviado exitosamente') {
+        alert('Email enviado correctamente');
+      } else {
+        alert('Hubo un problema con el envío del correo');
+      }
+    },
+    (error) => {
+      console.error('Error al enviar el email:', error);
+      if (error.error && error.error.message) {
+        alert(error.error.message);  // Muestra el mensaje de error detallado
+      } else {
+        alert('No se pudo enviar el email');
+      }
+    }
+  );
+  
+  
+  
+}
+
+
 
 copiarUrl() {
   const input = document.getElementById('urlInvitacion') as HTMLInputElement;
@@ -281,6 +352,7 @@ copiarUrl() {
         sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
       },
       (error) => {
+        alert(error.error?.message || 'Error al eliminar el producto');
         console.error('Error al eliminar el producto:', error);
       }
     );
@@ -289,7 +361,7 @@ copiarUrl() {
 
   cambiarCantidad(index: number, producto: producto, cambio: number): void {
     const nuevaCantidad = producto.unidadesPedidas + cambio;
-
+    const cantidadAntigua = producto.unidadesPedidas;
     if (nuevaCantidad < 0 || nuevaCantidad > 10) {
       return; // Evitar cantidades fuera del rango
     }
@@ -313,6 +385,8 @@ copiarUrl() {
         sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
       },
       (error) => {
+        alert (error.error?.message || 'Error al actualizar el producto');
+        this.productosLista[index].unidadesPedidas = cantidadAntigua; 
         console.error('Error al actualizar el producto:', error);
       }
     );
@@ -320,7 +394,7 @@ copiarUrl() {
   
   cambiarCantidadComprado(index: number, producto: producto, cambio: number): void {
     const nuevaCantidad = producto.unidadesCompradas + cambio;
-
+    const cantidadAntigua = producto.unidadesCompradas;
     if (nuevaCantidad < 0 || nuevaCantidad > 10) {
         return; // Evitar cantidades fuera del rango
     }
@@ -344,6 +418,8 @@ copiarUrl() {
         sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
       },
       (error) => {
+        alert (error.error?.message || 'Error al actualizar el producto');
+        this.productosLista[index].unidadesCompradas = cantidadAntigua;
         console.error('Error al actualizar el producto:', error);
       }
     );
@@ -363,7 +439,7 @@ guardarNombreLista(): void {
   // Llamar al servicio para actualizar el nombre de la lista en el backend
   this.listaService.actualizarNombreLista(this.listaID!, this.nuevoNombreLista).subscribe(
     (response) => {
-      console.log('Nombre de la lista actualizado correctamente:', response);
+      console.log('Nombre de la lista actualizado correctamente:', response.nombre);
 
       // Actualizar la lista en sessionStorage o localStorage
       sessionStorage.setItem('listaSeleccionada', JSON.stringify(response));  // Guardar la lista con el nuevo nombre
@@ -373,6 +449,8 @@ guardarNombreLista(): void {
       this.productosLista = response.productos || [];  // Actualizar la lista de productos
     },
     (error) => {
+      alert(error.error?.message || 'Error al actualizar el nombre de la lista');
+      this.listaNombre = this.lista.nombre;  
       console.error('Error al actualizar el nombre de la lista:', error);
     }
   );
@@ -401,11 +479,14 @@ guardarNombreLista(): void {
           this.lista = listaActualizada;
           if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
             this.mostrarUrl = false;
+            this.mostrarBotonCompartir = false;
           } else {
             this.mostrarUrl = true;
+            this.mostrarBotonCompartir = true;
           }
         },
         (error) => {
+          alert(`error al eliminar al miembro ${email}: ${error.error?.message || 'Error desconocido'}`);
           console.error(`Error al eliminar al miembro ${email}:`, error);
         }
       );

@@ -248,4 +248,56 @@
 .remove-member-btn:hover {
     background-color: #ff0000;
 }
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+/* Estilos para el input de correo y los botones dentro del modal */
+input {
+    margin-bottom: 10px;
+    padding: 5px;
+    width: 80%;
+}
+
+button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 14px;
+    color: white;
+    background-color: #007bff;  /* Azul */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block; /* Mantiene el tamaño del botón */
+    align-items: center; /* Centra los elementos verticalmente (si es necesario) */
+    justify-content: center; /* Centra los elementos horizontalmente */
+
+
+}
+
+
+button:hover {
+    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+}
+
+
+
+
+
   

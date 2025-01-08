@@ -85,25 +85,26 @@
   <!-- Botón para agregar un nuevo producto -->
   <button 
     class="btn add-product-btn" 
-    (click)="toggleAgregarProducto()"
-    [disabled]="!vip && productosLista.length >= 10">
+    name="btn_agregar_producto"
+    (click)="toggleAgregarProducto()">
     + Añadir Producto
   </button>
     
     <!-- Formulario para agregar un nuevo producto -->
     <div *ngIf="mostrarAgregarProducto" class="add-product-form">
       <label for="nuevoProducto">Producto:</label>
-      <input [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
+      <input name="nombreProducto" [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
       <br />
     
       <label for="unidadesPedidas">Unidades:</label>
-      <input [(ngModel)]="unidadesPedidas" type="number" min="1" max="10" />
+      <input name="cantidadProducto" [(ngModel)]="unidadesPedidas" type="number" min="1" max="10" />
       <br />
     
       <button 
         class="btn save-product-btn" 
+        name="btn_confirmar_aniadir_producto"
         (click)="aniadirProducto()"
-        [disabled]="!nuevoProducto || unidadesPedidas < 1 || (!vip && productosLista.length >= 10)">
+        [disabled]="!nuevoProducto || unidadesPedidas < 1">
         Guardar Producto
       </button>
     </div>
@@ -124,5 +125,30 @@
         </button>
       </li>
     </ul>
+  </div>
+</div>
+
+<!-- Botón para compartir -->
+<div *ngIf="mostrarBotonCompartir; else mensajePremium">
+  <p>Haz clic para compartir la lista:</p>
+  <button (click)="abrirModal()">Compartir URL</button>
+</div>
+<ng-template #mensajePremium>
+  <!-- Aquí va el mensaje que quieres mostrar cuando no se cumple la condición -->
+  <p>Necesitas ser premium para compartir la URL.</p>
+</ng-template>
+
+<!-- Modal para introducir el correo -->
+<div *ngIf="mostrarModal" class="modal">
+  <div class="modal-content">
+    <h2>Compartir URL por correo</h2>
+    <input
+      type="email"
+      [(ngModel)]="emailDestino"
+      placeholder="Introduce el correo electrónico"
+      required
+    />
+    <button (click)="enviarEmail()">Enviar</button>
+    <button (click)="cerrarModal()">Cancelar</button>
   </div>
 </div>
