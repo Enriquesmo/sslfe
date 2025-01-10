@@ -70,7 +70,10 @@ export class UserService {
   }
 
   enviarCorreoAlUsuario(emailData: any) {
-    return this.http.post(`${this.apiUrl}/users/send-email`, emailData);
-  }
+    return this.http.post(`${this.apiUrl}/users/send-email`, emailData, {
+      withCredentials: true, 
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    });
+  }
 }
 

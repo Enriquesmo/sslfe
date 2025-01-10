@@ -126,29 +126,32 @@
       </li>
     </ul>
   </div>
-</div>
 
-<!-- Botón para compartir -->
-<div *ngIf="mostrarBotonCompartir; else mensajePremium">
-  <p>Haz clic para compartir la lista:</p>
-  <button (click)="abrirModal()">Compartir URL</button>
-</div>
-<ng-template #mensajePremium>
-  <!-- Aquí va el mensaje que quieres mostrar cuando no se cumple la condición -->
-  <p>Necesitas ser premium para compartir la URL.</p>
-</ng-template>
+  <!-- Botón para compartir -->
+  <div *ngIf="mostrarBotonCompartir; else mensajePremium">
+    <p>Haz clic para compartir la lista:</p>
+    <button name="btn_compartir_url" (click)="abrirModal()">Compartir URL</button>
+  </div>
+  <ng-template #mensajePremium>
+    <!-- Aquí va el mensaje que quieres mostrar cuando no se cumple la condición -->
+    <p>Necesitas ser premium para compartir la URL.</p>
+  </ng-template>
 
-<!-- Modal para introducir el correo -->
-<div *ngIf="mostrarModal" class="modal">
-  <div class="modal-content">
-    <h2>Compartir URL por correo</h2>
-    <input
-      type="email"
-      [(ngModel)]="emailDestino"
-      placeholder="Introduce el correo electrónico"
-      required
-    />
-    <button (click)="enviarEmail()">Enviar</button>
-    <button (click)="cerrarModal()">Cancelar</button>
+  <!-- Modal para introducir el correo -->
+  <div *ngIf="mostrarModal" class="modal">
+    <div class="modal-content">
+      <h2>Compartir URL por correo</h2>
+      <input
+        type="email"
+        name="emailDestino"
+        [(ngModel)]="emailDestino"
+        placeholder="Introduce el correo electrónico"
+        required
+      />
+      <button name="btn_enviar_email_url"(click)="enviarEmail()">Enviar</button>
+      <button name="btn_cancelar_email_url"(click)="cerrarModal()">Cancelar</button>
+    </div>
   </div>
 </div>
+
+

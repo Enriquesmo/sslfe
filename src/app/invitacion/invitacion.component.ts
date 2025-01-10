@@ -53,7 +53,7 @@ export class InvitacionComponent implements OnInit {
       (response) => {
         if (response) {
           console.log('Lista actualizada:', response);
-          alert('Invitación aceptada correctamente');
+          //alert('Invitación aceptada correctamente');
           sessionStorage.setItem('listaSeleccionada', JSON.stringify(response));
           this.router.navigate(['/ListDetails']);
         }
