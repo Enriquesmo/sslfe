@@ -41,7 +41,7 @@ export class MainPageComponent {
         console.log('Listas cargadas:', this.listas);
       },
       error: (err) => {
-        alert(err.error?.message || 'Error al cargar las listas.');
+        //alert(err.error?.message || 'Error al cargar las listas.');
         console.error('Error al cargar las listas:', err);
       },
     });
