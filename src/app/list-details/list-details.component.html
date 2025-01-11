@@ -6,16 +6,13 @@
     <input *ngIf="editandoNombre" [(ngModel)]="nuevoNombreLista" />
   </p>
 
-  <!-- Botón de editar nombre solo visible para el creador -->
   <button *ngIf="esCreador && !editandoNombre" (click)="editarNombreLista()" class="btn edit-name-btn">Editar Nombre</button>
 
-  <!-- Botones para aceptar o cancelar cambios de nombre -->
   <div *ngIf="editandoNombre">
     <button (click)="guardarNombreLista()" class="btn save-name-btn">Aceptar</button>
     <button (click)="cancelarEditarNombre()" class="btn cancel-name-btn">Cancelar</button>
   </div>
 
-  <!-- El resto del contenido permanece igual -->
   <div class="product-list">
     <h3 class="subtitle">Productos añadidos</h3>
     <ul class="products">
@@ -23,7 +20,6 @@
         <strong>{{ producto.nombre }}</strong> - 
         <span>{{ producto.unidadesPedidas }} unidades</span>
 
-        <!-- Controles de cantidad -->
         <div class="quantity-controls">
           <button 
             class="btn quantity-btn" 
@@ -36,7 +32,6 @@
             [disabled]="producto.unidadesPedidas >= 10">+</button>
         </div>
 
-        <!-- Controles de cantidad comprada -->
         <div class="quantity-controls">
           <button 
             class="btn quantity-btn" 
@@ -49,7 +44,6 @@
             [disabled]="producto.unidadesCompradas >= producto.unidadesPedidas">+</button>
         </div>
 
-        <!-- Botón de eliminar solo si es el creador -->
         <button 
           *ngIf="esCreador" 
           class="btn delete-product-btn" 
@@ -82,7 +76,6 @@
   </ng-template>
   
   
-  <!-- Botón para agregar un nuevo producto -->
   <button 
     class="btn add-product-btn" 
     name="btn_agregar_producto"
@@ -90,7 +83,6 @@
     + Añadir Producto
   </button>
     
-    <!-- Formulario para agregar un nuevo producto -->
     <div *ngIf="mostrarAgregarProducto" class="add-product-form">
       <label for="nuevoProducto">Producto:</label>
       <input name="nombreProducto" [(ngModel)]="nuevoProducto" placeholder="Nombre del producto" />
@@ -112,7 +104,6 @@
 
 
 
-  <!-- Contenedor lateral para los miembros -->
   <div class="sidebar" *ngIf="esCreador">
     <h3 class="sidebar-title">Miembros de la lista</h3>
     <ul class="member-list">
@@ -127,17 +118,14 @@
     </ul>
   </div>
 
-  <!-- Botón para compartir -->
   <div *ngIf="mostrarBotonCompartir; else mensajePremium">
     <p>Haz clic para compartir la lista:</p>
     <button name="btn_compartir_url" (click)="abrirModal()">Compartir URL</button>
   </div>
   <ng-template #mensajePremium>
-    <!-- Aquí va el mensaje que quieres mostrar cuando no se cumple la condición -->
     <p>Necesitas ser premium para compartir la URL.</p>
   </ng-template>
 
-  <!-- Modal para introducir el correo -->
   <div *ngIf="mostrarModal" class="modal">
     <div class="modal-content">
       <h2>Compartir URL por correo</h2>

@@ -11,11 +11,11 @@ export class ProductoService {
   constructor(private http: HttpClient) { }
 
   aniadirProducto(idLista: string, producto: producto,email:string): Observable<lista> {
-    let apiUrlEspecifica = `${this.apiUrl}/productos/producto`;  // Asegúrate de que la URL esté bien formada
+    let apiUrlEspecifica = `${this.apiUrl}/productos/producto`;  
     
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'IdLista': idLista,  // Se pasa el IdLista en la cabecera
+      'IdLista': idLista,  
       'email': email
     });
   

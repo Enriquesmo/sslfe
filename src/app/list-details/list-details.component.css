@@ -3,7 +3,7 @@
     margin: 0 auto;
     padding: 20px;
     font-family: Arial, sans-serif;
-    text-align: center; /* Centrar el contenido horizontalmente */
+    text-align: center; 
 }
 
 .title {
@@ -17,14 +17,14 @@
     font-size: 20px;
     color: #555;
     margin-bottom: 10px;
-    text-align: center; /* Centrar el título de la lista */
+    text-align: center; 
 }
 
 .list-name {
     font-size: 18px;
     color: #666;
     margin-bottom: 15px;
-    text-align: center; /* Centrar el nombre de la lista */
+    text-align: center; 
 }
 
 .product-list {
@@ -33,22 +33,22 @@
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 20px;
-    text-align: justify; /* Justificar el contenido del texto */
+    text-align: justify; 
 }
 
 .products {
     list-style: none;
     padding: 0;
-    text-align: left; /* Alinea el texto a la izquierda dentro de los elementos */
+    text-align: left; 
     margin: 0 auto;
-    display: inline-block; /* Permite que el texto tenga un ancho ajustado */
+    display: inline-block; 
 }
 
 .product-item {
     font-size: 16px;
     padding: 8px 0;
     border-bottom: 1px solid #eee;
-    text-align: justify; /* Justificar el contenido del texto */
+    text-align: justify; 
 }
 
 .product-item:last-child {
@@ -76,7 +76,7 @@
     padding: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    text-align: left; /* Alineación de formulario */
+    text-align: left; 
 }
 
 .add-product-form input {
@@ -86,7 +86,7 @@
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    text-align: left; /* Alineación dentro del campo de texto */
+    text-align: left; 
 }
 
 .save-product-btn {
@@ -97,7 +97,7 @@
     background-color: #218838;
 }
 .delete-product-btn {
-    background-color: #dc3545; /* Rojo */
+    background-color: #dc3545; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -108,7 +108,7 @@
 }
 
 .delete-product-btn:hover {
-    background-color: #c82333; /* Rojo oscuro */
+    background-color: #c82333; 
 }
 .quantity-controls {
     display: inline-flex;
@@ -117,7 +117,7 @@
 }
 
 .quantity-btn {
-    background-color: #17a2b8; /* Azul claro */
+    background-color: #17a2b8; 
     color: white;
     border: none;
     border-radius: 5px;
@@ -131,7 +131,7 @@
 }
 
 .quantity-btn:hover {
-    background-color: #138496; /* Azul más oscuro */
+    background-color: #138496; 
 }
 
 .cantidad {
@@ -147,47 +147,43 @@
     margin-top: 10px;
   }
  
-/* Estilos para el contenedor del enlace de invitación */
 .url-container {
     margin-top: 20px;
-    text-align: center; /* Centrar los elementos */
-    margin-bottom: 20px; /* Agregar margen inferior para separar de otros elementos */
+    text-align: center; 
+    margin-bottom: 20px; 
 }
 
-/* Estilos para el campo de texto que muestra la URL */
 .url-input {
-    width: calc(100% - 40px); /* Hacerlo casi todo el ancho */
+    width: calc(100% - 40px); 
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #f9f9f9;
     margin-bottom: 10px;
-    text-align: center; /* Centrar el texto */
+    text-align: center; 
     display: inline-block;
 }
 
-/* Estilos para el botón de copiar */
 .copy-url-btn {
     padding: 8px 15px;
     font-size: 14px;
     color: white;
-    background-color: #17a2b8; /* Azul claro */
+    background-color: #17a2b8; 
     border: none;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    margin-bottom: 20px; /* Separar del siguiente elemento */
+    margin-bottom: 20px; 
 }
 
 .copy-url-btn:hover {
-    background-color: #138496; /* Azul más oscuro */
+    background-color: #138496; 
 }
 
-/* Estilos para el botón de añadir producto */
 .add-product-btn {
-    margin-top: 0px; /* Agregar más espacio arriba del botón */
-    margin-bottom: 20px; /* Agregar margen inferior para separar de otros elementos */
+    margin-top: 0px; 
+    margin-bottom: 20px; 
 }
 .premium-message {
     background-color: #f9f9f9;
@@ -206,19 +202,19 @@
   }
   
   .premium-message strong {
-    color: #007bff; /* Azul destacable */
+    color: #007bff; 
   }
 
 
   .sidebar {
-    width: 200px; /* Establecemos el ancho de la barra lateral */
-    position: absolute; /* La posicionamos de manera absoluta */
-    top: 20px; /* Alineada en la parte superior */
-    right: 20px; /* Alineada a la derecha */
-    background-color: #f4f4f4; /* Fondo para diferenciar la barra */
+    width: 200px; 
+    position: absolute; 
+    top: 20px; 
+    right: 20px; 
+    background-color: #f4f4f4; 
     padding: 15px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .sidebar-title {
@@ -267,7 +263,6 @@
     text-align: center;
 }
 
-/* Estilos para el input de correo y los botones dentro del modal */
 input {
     margin-bottom: 10px;
     padding: 5px;
@@ -279,21 +274,21 @@ button {
     padding: 10px 20px;
     font-size: 14px;
     color: white;
-    background-color: #007bff;  /* Azul */
+    background-color: #007bff;  
     border: none;
     border-radius: 5px;
     cursor: pointer;
     text-align: center;
-    display: inline-block; /* Mantiene el tamaño del botón */
-    align-items: center; /* Centra los elementos verticalmente (si es necesario) */
-    justify-content: center; /* Centra los elementos horizontalmente */
+    display: inline-block; 
+    align-items: center; 
+    justify-content: center; 
 
 
 }
 
 
 button:hover {
-    background-color: #0056b3; /* Azul más oscuro al pasar el ratón */
+    background-color: #0056b3; 
 }
 
 

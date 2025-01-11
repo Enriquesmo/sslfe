@@ -1,11 +1,9 @@
-/* Contenedor del contenido principal */
 .content-container {
     max-width: 400px;
     margin: 0 auto;
     text-align: center;
   }
   
-  /* Botón de redirección */
   .redirect-button {
     margin-top: 20px;
   }

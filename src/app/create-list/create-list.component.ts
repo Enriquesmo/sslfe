@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; // Importamos CommonModule
+import { CommonModule } from '@angular/common'; 
 import { ListaService } from '../lista.service';
 import { UserService } from '../user.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -10,7 +10,7 @@ import { lista } from '../modelo/lista.model';
 @Component({
   selector: 'app-create-list',
   standalone: true,
-  imports: [FormsModule, CommonModule], // Agregamos CommonModule aquí
+  imports: [FormsModule, CommonModule], 
   templateUrl: './create-list.component.html',
   styleUrls: ['./create-list.component.css']
 })
@@ -33,7 +33,6 @@ export class CreateListComponent {
 
   crearLista() {
     const email = this.cookieService.get('userEmail');
-   // if (this.vip || this.cantidadListas < 2) {
 
   
       this.lista.crearLista(this.nombreLista, email).subscribe({
@@ -49,21 +48,11 @@ export class CreateListComponent {
           console.error('Error al crear la lista:', err);
         }
       });
-    //}
+    
   }
   
 
-  //esVip(email: string): void {
-    //this.userService.esVip(email).subscribe({
-      //next: (data) => {
-        //this.vip = data;
-        //console.log('Es VIP:', this.vip);
-      //},
-      //error: (err) => {
-        //console.error('Error al verificar si es VIP:', err);
-      //},
-    //});
-  //}
+ 
   cantListas(email: string): void {
     this.lista.extraerListas(email).subscribe({
       next: (data) => {

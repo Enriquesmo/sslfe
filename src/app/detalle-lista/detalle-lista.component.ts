@@ -26,17 +26,16 @@ export class DetalleListaComponent implements OnInit {
     private listaService: ListaService,
     public manager: ManagerService,
     private route: ActivatedRoute,
-    private productoService: ProductoService // Inyectamos ActivatedRoute para obtener los queryParams
+    private productoService: ProductoService 
   ) {}
 
   ngOnInit(): void {
-    // Obtener el id de la lista desde los queryParams
+    
     this.route.queryParams.subscribe(params => {
       this.listaId = params['id'];
       console.log('ID de lista:', this.listaId);
 
       if (this.listaId) {
-        // Cargar la lista correspondiente utilizando el id
         
       }
     });

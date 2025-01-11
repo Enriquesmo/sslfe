@@ -52,9 +52,8 @@ export class LoginComponent {
     } else {
       console.log("todo OK", JSON.stringify(this.loginForm.value, null, 2));
 
-      // Enviar datos al servidor para comprobar credenciales
       this.user.login(this.loginForm.controls['email'].value, this.loginForm.controls['pwd'].value).subscribe({
-        next:(response) => {  // El servidor devuelve un string (el token)
+        next:(response) => { 
           if (response) {
             console.log("Usuario logeado");
             this.router.navigate(['/MainPage']);
@@ -66,7 +65,6 @@ export class LoginComponent {
         error: (err) => {
           console.error('Error en login:', err);
   
-          // Extrae el mensaje del error devuelto por el backend
           const errorMessage = err.error;
           alert(`Hubo un error en login: ${errorMessage}`);
         }
@@ -78,15 +76,13 @@ export class LoginComponent {
   }
 
   onContinue() {
-    this.router.navigate(['/MainPage']); // Redirigir a la página principal
+    this.router.navigate(['/MainPage']); 
   }
 
   onGoToLogin() {
-    this.alreadyAuthenticated = false; // Volver a la vista del formulario de login
-     // Obtener todas las cookies
+    this.alreadyAuthenticated = false; 
     const cookies = document.cookie.split(";");
 
-    // Eliminar cada cookie encontrada
     cookies.forEach(cookie => {
         const cookieName = cookie.split("=")[0].trim();
         this.cookieService.delete(cookieName, '/');
@@ -100,7 +96,7 @@ export class LoginComponent {
     if (email) {
       this.user.recuperarContrasena(email).subscribe({
         next: (response: string) => {
-          alert(response); // Mensaje del backend
+          alert(response); 
         },
         error: (err) => {
           console.error(err);

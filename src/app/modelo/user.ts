@@ -1,12 +1,12 @@
 export class User {
-    email: string;       // Correo electrónico del usuario
-    pwd: string;         // Contraseña (hasheada en el backend)
-    token?: string;      // Token opcional
-    creationTime?: number; // Tiempo de creación (opcional)
-    ip?: string;         // Dirección IP (opcional)
-    cookie?: string;     // Identificador de cookie
-    vip: boolean;        // Usuario VIP o no
-    vipFecha?: number; // Fecha de expiración de la suscripción VIP
+    email: string;       
+    pwd: string;         
+    token?: string;     
+    creationTime?: number; 
+    ip?: string;       
+    cookie?: string;   
+    vip: boolean;       
+    vipFecha?: number; 
     constructor(
       email: string,
       pwd: string,

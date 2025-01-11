@@ -29,7 +29,7 @@ export class ListDetailsComponent implements OnInit {
   productosLista: producto[] = [];
   mostrarAgregarProducto: boolean = false;
   esCreador: boolean = false;
-  editandoNombre: boolean = false; // Para editar nombre
+  editandoNombre: boolean = false; 
   nuevoNombreLista: string = '';
   email: string = '';
   vip: boolean = false; 
@@ -54,7 +54,6 @@ export class ListDetailsComponent implements OnInit {
   
 
   ngOnInit(): void {
-    // Recuperar la lista desde sessionStorage
     const listaGuardada = sessionStorage.getItem('listaSeleccionada');
     if (listaGuardada) {
       this.lista = JSON.parse(listaGuardada);
@@ -64,19 +63,18 @@ export class ListDetailsComponent implements OnInit {
       this.esVip(this.email);
       console.log('Lista cargada desde sessionStorage:', lista);
       
-      // Verificar si el usuario es el creador de la lista
       const userEmail = this.cookieService.get('userEmail');
       if (this.lista.creador === userEmail) {
-        this.esCreador = true; // El usuario es el creador
+        this.esCreador = true; 
       } else {
-        this.esCreador = false; // El usuario no es el creador
+        this.esCreador = false; 
       }
     } else {
       console.error('No se encontró la lista en sessionStorage.');
     }
     this.connectWebSocket();
     if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
-      this.mostrarUrl = false; // No mostrar la URL
+      this.mostrarUrl = false; 
       this.mostrarBotonCompartir = false;
 
     }
@@ -89,11 +87,10 @@ export class ListDetailsComponent implements OnInit {
     const listaId = this.listaID;
   
     if (userEmail && listaId) {
-      // Asegúrate de que sessionStorage esté correctamente cargado antes de conectar el WebSocket
       const listaGuardada = sessionStorage.getItem('listaSeleccionada');
       if (!listaGuardada) {
         console.error('No se encontró la lista en sessionStorage');
-        return; // No continuar si la lista no está disponible
+        return; 
       }
   
       const wsUrl = `wss://localhost:8080/wsListas?email=${encodeURIComponent(userEmail)}&listaId=${listaId}`;
@@ -105,7 +102,6 @@ export class ListDetailsComponent implements OnInit {
           console.log('Mensaje recibido:', message);
           this.handleWebSocketMessage(message);
   
-          // Actualizar sessionStorage si el mensaje contiene una nueva lista
           this.updateSessionStorageIfNeeded(message);
         },
         error: (err) => {
@@ -119,15 +115,12 @@ export class ListDetailsComponent implements OnInit {
   
   private updateSessionStorageIfNeeded(message: any): void {
     try {
-      // Verificar si el mensaje contiene información de una lista
       const parsedMessage = typeof message === 'string' ? JSON.parse(message) : message;
       if (parsedMessage.lista && parsedMessage.lista.id === this.listaID) {
         const listaActualizada = parsedMessage.lista;
         console.log('Actualizando sessionStorage con nueva lista:', listaActualizada);
   
-        // Actualizar el sessionStorage con la lista nueva
         sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
-        //window.location.reload();
         this.lista = listaActualizada;
         this.listaNombre = listaActualizada.nombre;
         this.productosLista = listaActualizada.productos || [];
@@ -148,7 +141,6 @@ export class ListDetailsComponent implements OnInit {
 
     if (parsedMessage.mensaje) {
       const mensaje = parsedMessage.mensaje.toLowerCase();
-    // Filtra según el contenido del mensaje
     if (mensaje.includes("se ha eliminado de la lista a:")) {
       console.log("eliminado:", mensaje);
       if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
@@ -161,7 +153,7 @@ export class ListDetailsComponent implements OnInit {
       const emailEliminado = mensaje.split(":")[1]?.trim();
       if (emailEliminado && emailEliminado === this.email) {
         console.log("El usuario ha sido eliminado, redirigiendo a MainPage...");
-        this.router.navigate(['/MainPage']); // Redirige a la MainPage
+        this.router.navigate(['/MainPage']); 
       }
     } else if (mensaje.includes("nuevo miembro: ")) {
       console.log("nuevo miembro: :", mensaje);
@@ -174,7 +166,6 @@ export class ListDetailsComponent implements OnInit {
       }
     } else {
       console.log("Otro tipo de mensaje:", mensaje);
-      // Puedes agregar más condicionales para otros tipos de mensaje si es necesario
     }
     }
 }
@@ -226,24 +217,20 @@ export class ListDetailsComponent implements OnInit {
       (response) => {
         console.log('Producto agregado correctamente:', response);
   
-        // Actualizar la lista local con la nueva lista recibida del backend
-        this.productosLista = response.productos; // Asume que el backend devuelve la lista actualizada
+        this.productosLista = response.productos; 
         console.log('Nueva lista de productos:', this.productosLista);
   
-        // Actualizar el sessionStorage con la nueva lista
         const listaActualizada = {
           id: this.listaID,
           nombre: this.listaNombre,
           productos: this.productosLista,
-          creador: this.lista.creador // Si es necesario incluir el creador
+          creador: this.lista.creador 
         };
         sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
         console.log('Lista actualizada guardada en sessionStorage:', listaActualizada);
   
-        // Ocultar el formulario de añadir producto
         this.mostrarAgregarProducto = false;
   
-        // Limpiar los campos del formulario
         this.nuevoProducto = '';
         this.unidadesPedidas = 0;
         this.unidadesCompradas = 0;
@@ -256,30 +243,25 @@ export class ListDetailsComponent implements OnInit {
   }
   
   
- //ORTIZ
+ 
  generarEnlaceInvitacion(): string {
   if (!this.listaID) {
     console.error('No se ha encontrado el ID de la lista');
     return '';
   }
 
-  // Generar la URL relativa
   const url = this.router.createUrlTree(['/invitacion', this.listaID]);
 
-  // Obtener el dominio base y concatenarlo con la URL generada
-  const baseUrl = window.location.origin; // Esto obtiene el dominio completo, como https://localhost:4200
-  const fullUrl = baseUrl + url.toString(); // Concatenamos la URL completa
+  const baseUrl = window.location.origin; 
+  const fullUrl = baseUrl + url.toString(); 
 
-  // Devuelve la URL completa como un string
   return fullUrl;
 }
 
-// Método para abrir el modal
 abrirModal() {
   this.mostrarModal = true;
 }
 
-// Método para cerrar el modal
 cerrarModal() {
   this.mostrarModal = false;
   this.emailDestino = '';
@@ -314,7 +296,7 @@ enviarEmail() {
     (error) => {
       console.error('Error al enviar el email:', error);
       if (error.error && error.error.message) {
-        alert(error.error.message);  // Muestra el mensaje de error detallado
+        alert(error.error.message);  
       } else {
         alert('No se pudo enviar el email');
       }
@@ -329,8 +311,8 @@ enviarEmail() {
 
 copiarUrl() {
   const input = document.getElementById('urlInvitacion') as HTMLInputElement;
-  input.select();  // Selecciona el texto dentro del campo de texto
-  document.execCommand('copy');  // Copia el texto al portapapeles
+  input.select();  
+  document.execCommand('copy');  
   console.log('URL copiada al portapapeles');
 }
 
@@ -341,10 +323,8 @@ copiarUrl() {
       (response) => {
         console.log('Producto eliminado correctamente:', response);
         
-        // Actualizar la lista de productos con la nueva lista recibida del backend
         this.productosLista = response.productos || [];
         
-        // Actualizar el localStorage con la lista actualizada
         const listaActualizada = {
           ...JSON.parse(sessionStorage.getItem('listaSeleccionada')!),
           productos: this.productosLista,
@@ -363,21 +343,17 @@ copiarUrl() {
     const nuevaCantidad = producto.unidadesPedidas + cambio;
     const cantidadAntigua = producto.unidadesPedidas;
     if (nuevaCantidad < 0 || nuevaCantidad > 10) {
-      return; // Evitar cantidades fuera del rango
+      return; 
     }
 
-    // Actualizar la cantidad localmente
     this.productosLista[index].unidadesPedidas = nuevaCantidad;
 
-    // Llamar al servicio para actualizar la cantidad en el backend
     this.productoService.modificarProducto(this.productosLista[index]).subscribe(
       (response) => {
         console.log('Producto actualizado correctamente:', response);
   
-        // Actualizar la lista local
         this.productosLista[index] = response;
   
-        // Actualizar el localStorage con la lista modificada
         const listaActualizada = {
           ...JSON.parse(sessionStorage.getItem('listaSeleccionada')!),
           productos: this.productosLista,
@@ -396,21 +372,17 @@ copiarUrl() {
     const nuevaCantidad = producto.unidadesCompradas + cambio;
     const cantidadAntigua = producto.unidadesCompradas;
     if (nuevaCantidad < 0 || nuevaCantidad > 10) {
-        return; // Evitar cantidades fuera del rango
+        return; 
     }
 
-    // Actualizar la cantidad comprada localmente
     this.productosLista[index].unidadesCompradas = nuevaCantidad;
 
-    // Llamar al servicio para actualizar la cantidad en el backend
     this.productoService.modificarProducto(this.productosLista[index]).subscribe(
       (response) => {
         console.log('Producto actualizado correctamente:', response);
   
-        // Actualizar la lista local
         this.productosLista[index] = response;
   
-        // Actualizar el localStorage con la lista modificada
         const listaActualizada = {
           ...JSON.parse(sessionStorage.getItem('listaSeleccionada')!),
           productos: this.productosLista,
@@ -427,26 +399,22 @@ copiarUrl() {
 
 
 editarNombreLista(): void {
-  this.editandoNombre = true; // Permite que el campo de texto sea editable
-  this.nuevoNombreLista = this.listaNombre ?? ''; // Inicializar el nuevo nombre con el actual
+  this.editandoNombre = true; 
+  this.nuevoNombreLista = this.listaNombre ?? ''; 
 }
 
-// Método para guardar el nuevo nombre y actualizar la lista
 guardarNombreLista(): void {
-  this.listaNombre = this.nuevoNombreLista;  // Actualizar el nombre localmente
-  this.editandoNombre = false;  // Desactivar el modo de edición
+  this.listaNombre = this.nuevoNombreLista;  
+  this.editandoNombre = false;  
 
-  // Llamar al servicio para actualizar el nombre de la lista en el backend
   this.listaService.actualizarNombreLista(this.listaID!, this.nuevoNombreLista).subscribe(
     (response) => {
       console.log('Nombre de la lista actualizado correctamente:', response.nombre);
 
-      // Actualizar la lista en sessionStorage o localStorage
-      sessionStorage.setItem('listaSeleccionada', JSON.stringify(response));  // Guardar la lista con el nuevo nombre
+      sessionStorage.setItem('listaSeleccionada', JSON.stringify(response));  
 
-      // Actualizar la propiedad listaNombre con el nuevo nombre
       this.listaNombre = response.nombre;
-      this.productosLista = response.productos || [];  // Actualizar la lista de productos
+      this.productosLista = response.productos || [];  
     },
     (error) => {
       alert(error.error?.message || 'Error al actualizar el nombre de la lista');
@@ -456,26 +424,22 @@ guardarNombreLista(): void {
   );
 }
   cancelarEditarNombre(): void {
-    this.editandoNombre = false; // Desactivar el modo de edición sin guardar cambios
+    this.editandoNombre = false; 
   }
 
   
   eliminarMiembro(email: string): void {
-    // Confirmación antes de proceder
     if(email!==this.lista.creador){
     if (confirm(`¿Estás seguro de que deseas eliminar a ${email} de la lista?`)) {
       this.listaService.eliminarMiembro(this.listaID!, email).subscribe(
         (response) => {
           console.log(`Miembro ${email} eliminado correctamente`);
           
-          // Actualizar la lista local con la respuesta del backend
-          // Asumimos que 'response' es la lista actualizada que retorna el backend
+
           const listaActualizada = response;
   
-          // Actualizamos la lista en el sessionStorage
           sessionStorage.setItem('listaSeleccionada', JSON.stringify(listaActualizada));
   
-          // Opcional: Actualiza la lista en el componente si es necesario
           this.lista = listaActualizada;
           if ( this.lista.emailsUsuarios.length >= 2 && !this.vip && this.lista.creador === this.email) {
             this.mostrarUrl = false;

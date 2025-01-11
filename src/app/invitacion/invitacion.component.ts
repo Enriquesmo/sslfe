@@ -24,11 +24,9 @@ export class InvitacionComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Verificar si el usuario está logueado
-    this.userEmail = this.cookieService.get('userEmail');  // Obtener el email desde las cookies (o tu método de autenticación)
+    this.userEmail = this.cookieService.get('userEmail');  
     if (!this.userEmail) {
       this.usuarioLogeado = false;
-      // Redirigir al login si no está logueado
       alert('Es necesario iniciar sesión para aceptar la invitación');
       this.router.navigate(['/Login']);  // Redirige al login
     } else {
@@ -40,20 +38,16 @@ export class InvitacionComponent implements OnInit {
   }
 
   acceptInvitation(): void {
-    // Comprobar si el usuario está logueado
     if (!this.userEmail) {
       alert('Es necesario estar logueado para aceptar la invitación');
-      // Redirigir al login
       this.router.navigate(['/Login']);
       return;
     }
 
-    // Si está logueado, llamar al servicio para aceptar la invitación
     this.list.aceptarInvitacion(this.listaId, this.userEmail).subscribe(
       (response) => {
         if (response) {
           console.log('Lista actualizada:', response);
-          //alert('Invitación aceptada correctamente');
           sessionStorage.setItem('listaSeleccionada', JSON.stringify(response));
           this.router.navigate(['/ListDetails']);
         }
@@ -61,7 +55,6 @@ export class InvitacionComponent implements OnInit {
       (error) => {
         console.error('Error al aceptar la invitación:', error);
         if (error.status === 403) {
-          // Si el backend devuelve un estado 403, mostramos el mensaje personalizado
           alert(error.error.message);
         } else {
           alert('Hubo un error al aceptar la invitación. Inténtalo nuevamente.');

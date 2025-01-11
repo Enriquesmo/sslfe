@@ -69,12 +69,12 @@ div {
   }
   .premium-container {
     display: flex;
-    justify-content: space-between; /* Espacio entre el texto y el checkbox */
-    align-items: center; /* Alinea verticalmente */
-    margin-bottom: 15px; /* Espacio inferior */
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 15px; 
   }
   
   .premium-container label {
-    margin: 0; /* Quita márgenes adicionales */
+    margin: 0; 
   }
   

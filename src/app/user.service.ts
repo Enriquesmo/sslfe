@@ -40,20 +40,18 @@ export class UserService {
       {
         headers: headers,
         responseType: 'text' as 'json',
-        withCredentials: true // Habilitar envío y recepción de cookies
+        withCredentials: true 
       }
     );
   }
 
- // verificarCorreo(email: string): Observable<boolean> {
-   // return this.http.get<boolean>(`${this.apiUrl}/users/verificar-correo?email=${email}`);
-  //}
+
   esVip(email: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/users/verificar-vip?email=${email}`,{withCredentials: true});
   }
   isAuthenticated(): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/tokens/validate-session`, {
-      withCredentials: true // Asegura que la cookie se envíe con la solicitud
+      withCredentials: true 
     });
   }
   getUserInfo(email: string): Observable<any> {

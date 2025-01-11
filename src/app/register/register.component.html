@@ -8,7 +8,6 @@
   <label for="confirmPassword">Confirmar Contraseña:</label>
   <input type="password" [(ngModel)]="pwd2" name="confirmPassword" placeholder="Confirma tu contraseña" required>
 
-  <!-- Opcional: Selección para Premium -->
   <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
     <label for="premium" style="margin: 0;">Usuario Premium</label>
     <input
@@ -21,7 +20,6 @@
 
 
 
-  <!-- Botón para registrar siempre -->
   <button name="btn_registrar" [disabled]="!email || !pwd1 || !pwd2" (click)="registrar()">Registrar</button>
 
   <button name="btn_volver_al_Login" routerLink="/Login">Volver al Login</button>

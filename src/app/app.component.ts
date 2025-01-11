@@ -10,7 +10,6 @@ import { ChatComponent } from './chat/chat.component';
 import { CookieService } from 'ngx-cookie-service';
 import { PayComponent } from './pay/pay.component';
 
-/*import { NavigationService } from './navigation.service';*/
 
 @Component({
   selector: 'app-root',

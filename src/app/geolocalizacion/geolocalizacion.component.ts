@@ -49,7 +49,7 @@ export class GeolocalizacionComponent {
     if (this.coordenadas) {
       const lat = this.coordenadas.coords.latitude;
       const lon = this.coordenadas.coords.longitude;
-      const apiKey = 'QLW9Y8AGK34XB6UDHGQPSSAX4'; // Replace with your Visual Crossing API key
+      const apiKey = 'QLW9Y8AGK34XB6UDHGQPSSAX4'; 
       const url = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${lat},${lon}?unitGroup=metric&key=${apiKey}`;      fetch(url)
         .then(response => response.json())
         .then(data => {

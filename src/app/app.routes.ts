@@ -9,7 +9,7 @@ import { InvitacionComponent } from './invitacion/invitacion.component';
 import { PayComponent } from './pay/pay.component';
 import { UserComponent } from './user/user.component';
 export const routes: Routes = [
-    { path: '', redirectTo: 'Login', pathMatch: 'full' }, // Ruta predeterminada que redirige al Login
+    { path: '', redirectTo: 'Login', pathMatch: 'full' }, 
     { path: 'Login', component: LoginComponent },
     { path: 'Register', component: RegisterComponent },
     { path: 'MainPage', component: MainPageComponent },

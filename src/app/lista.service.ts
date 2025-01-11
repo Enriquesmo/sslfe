@@ -25,20 +25,19 @@ export class ListaService {
   extraerListas(email: string): Observable<lista[]> {
     const url = `${this.apiUrl}/listas/getListas`;
     return this.http.get<lista[]>(url, {
-      params: { email }, // Envía el parámetro 'email'
+      params: { email }, 
       withCredentials: true
     });
   }
     
-// Método para actualizar el nombre de la lista en el backend y recibir la lista actualizada
 actualizarNombreLista(listaID: string, nuevoNombre: string): Observable<lista> {
   const url = `${this.apiUrl}/listas/cambiarNombre?idLista=${listaID}&nuevoNombre=${nuevoNombre}`;
-  return this.http.put<lista>(url, {}, { withCredentials: true });  // Enviamos un objeto vacío en el cuerpo
+  return this.http.put<lista>(url, {}, { withCredentials: true });  
 }
 
 aceptarInvitacion(idLista: string, email: string): Observable<any> {
   const url = `${this.apiUrl}/listas/accept-invitacion?idLista=${idLista}&email=${email}`;
-  return this.http.post<any>(url, {},{ withCredentials: true }); // Deja la solicitud POST vacía ya que los parámetros están en la URL
+  return this.http.post<any>(url, {},{ withCredentials: true }); 
 }
 
 eliminarMiembro(listaId: string, email: string): Observable<any> {
@@ -47,10 +46,9 @@ eliminarMiembro(listaId: string, email: string): Observable<any> {
 }
 
 eliminarLista(idLista: string, email: string): Observable<string> {
-  console.log("Eliminando lista con ID: ${idLista} y email: ${email}");
+  console.log(`Eliminando lista con ID: ${idLista} y email: ${email}`);
   const url = `${this.apiUrl}/listas/eliminarLista`;
   
-  // Usa .delete con el tipo de respuesta 'text' en lugar de 'json'
   return this.http.delete<string>(url, {
     params: { idLista, email },
     responseType: 'text' as 'json',
@@ -58,21 +56,7 @@ eliminarLista(idLista: string, email: string): Observable<string> {
   });
 }
 
-//obtenerProductosDeLista(idLista: string): Observable<producto[]> {
-  //const url = `${this.apiUrl}/producto?idLista=${idLista}`;  // La URL corresponde al endpoint que creamos en el backend
-  //return this.http.get<producto[]>(url);  // Realizamos una solicitud GET
-//}
 
-//aceptarInvitacion(listaId: string, userEmail: string): void {
-  //console.log('Aceptando invitación:', listaId, userEmail);
-  //this.http.post(this.apiUrl+"/accept-invitacion", { listaId: listaId, emailUsuario: userEmail })
-    //.subscribe(() => {
-      //alert('Invitación aceptada');
-      //this.router.navigate(['/MainPage', listaId]);
-    //}, error => {
-      //console.error('Error al aceptar la invitación', error);
-    //});
-  //}
-
+ 
 
 }

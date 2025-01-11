@@ -10,7 +10,6 @@ export class PagosService {
   private apiUrl = 'https://localhost:9000';
 
   constructor(private http: HttpClient) {}
- // Método para preparar la transacción en el backend
  prepararTransaccion(amount: number): Observable<any> {
   return this.http.put(`${this.apiUrl}/pagos/prepararTransaccion`, amount, {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -20,7 +19,6 @@ export class PagosService {
 }
 
 confirmarPago(paymentMethodId: string, email: string, clientSecret: string): Observable<any> {
-  // Construimos los parámetros para la solicitud
   const params = new HttpParams()
     .set('paymentMethodId', paymentMethodId)
     .set('email', email)

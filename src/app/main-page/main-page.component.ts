@@ -4,7 +4,7 @@ import { UserService } from '../user.service';
 import { lista } from '../modelo/lista.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router'; // Importamos el router
+import { Router } from '@angular/router'; 
 import { ManagerService } from '../manager.service';
 import { CookieService } from 'ngx-cookie-service';
 import { CreateListComponent } from '../create-list/create-list.component';
@@ -35,17 +35,27 @@ export class MainPageComponent {
   }
 
   cargarListas(): void {
+    console.log(`Cargando listas para el email: ${this.email}`);
     this.listaService.extraerListas(this.email).subscribe({
       next: (data) => {
-        this.listas = data;
-        console.log('Listas cargadas:', this.listas);
+        console.log('Datos recibidos del backend:', data);
+        
+        if (data.length === 0) {
+          console.log('No hay listas asociadas para este usuario.');
+          this.listas = []; 
+        } else {
+          this.listas = data;
+        }
       },
       error: (err) => {
-        //alert(err.error?.message || 'Error al cargar las listas.');
         console.error('Error al cargar las listas:', err);
+        const errorMessage = err.error?.message || 'Error desconocido al cargar las listas.';
+        alert(`Hubo un error al cargar las listas: ${errorMessage}`);
       },
     });
   }
+  
+  
 
   verDetalles(indice: number): void {
     sessionStorage.setItem('listaSeleccionada', JSON.stringify(this.listas[indice]));
@@ -57,23 +67,21 @@ export class MainPageComponent {
 
   eliminarLista(idLista: string): void {
     if (confirm('¿Estás seguro de que deseas eliminar esta lista?')) {
+      console.log(`Intentando eliminar lista con ID: ${idLista} para email: ${this.email}`);
       this.listaService.eliminarLista(idLista, this.email).subscribe({
         next: (response) => {
-          //if(response){
-            alert(response);
-            this.cargarListas(); // Recargar las listas después de eliminar
-          //}
-  
+          console.log('Respuesta del backend al eliminar lista:', response);
+          alert(response);
+          this.cargarListas(); 
         },
         error: (err) => {
           console.error('Error al eliminar la lista:', err);
-  
-          // Extrae el mensaje del error devuelto por el backend
           const errorMessage = err.error?.message || 'Error desconocido al eliminar la lista.';
           alert(`Hubo un error al eliminar la lista: ${errorMessage}`);
         }
       });
     }
   }
+  
   
 }

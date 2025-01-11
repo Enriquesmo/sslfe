@@ -10,7 +10,6 @@ export class NavigationService {
     this.router.navigate(['/Login']);
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
-        //console.log('NavigationStart event detected', event);
         if (event.navigationTrigger === 'popstate') {
           this.router.navigate(['/Login']);
         }

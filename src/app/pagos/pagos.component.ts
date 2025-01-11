@@ -1,5 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { loadStripe, Stripe } from '@stripe/stripe-js';  // Importamos loadStripe
+import { loadStripe, Stripe } from '@stripe/stripe-js';  
 
 @Component({
   selector: 'app-pagos',
@@ -7,11 +7,10 @@ import { loadStripe, Stripe } from '@stripe/stripe-js';  // Importamos loadStrip
   styleUrls: ['./pagos.component.css']
 })
 export class PagosComponent implements AfterViewInit {
-  private clientSecret: string = ''; // Variable para guardar el client_secret
+  private clientSecret: string = ''; 
   private stripePromise: Promise<Stripe | null>;
 
   constructor() {
-    // Carga de Stripe de forma asíncrona con tu clave pública
     this.stripePromise = loadStripe('pk_test_51Q7a2rAePCPcGYrDmy7hbcIelpPaDkAUxpGrvSLINqaXxIa6Ev5l9yvjnFUUuVl9h9g5TjX3xa2JSZuV0B8xpZRX00l0yOd3vI');
   }
 
